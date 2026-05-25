@@ -924,13 +924,14 @@
     if (state && state.unlocked && state.expiry && state.expiry > Date.now()) {
       let remaining = Math.floor((state.expiry - Date.now()) / 60000);
       showMsg(`🎬 Opening ${card.name}... (${remaining} min)`);
-      window.location.href = card.href;  // ✅ يفتح مباشرة
+      window.location.href = card.href;
     } else {
-      showPremiumModal(key, card.name);
+      // ✅ التصحيح هنا
+      RewardedAds.showModal(key, card.name);
     }
   } else {
     if (card.href) {
-      window.location.href = card.href;  // ✅ يفتح مباشرة
+      window.location.href = card.href;
     } else {
       showMsg(`🔜 ${card.name} - Coming Soon`);
     }
