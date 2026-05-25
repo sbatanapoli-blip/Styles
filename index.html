@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#05060a">
+<title>GaLiL TV Pro</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+  /* 🎙️ PRO BROADCAST UI */
+  :root {
+    --bg: #05060a;
+    --surface: #0c0e14;
+    --surface-hover: #141720;
+    --accent: #f59e0b;
+    --accent-glow: rgba(245, 158, 11, 0.25);
+    --text: #f9fafb;
+    --text-muted: #6b7280;
+    --border: #1f2937;
+    --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --radius: 8px;
+    --spacing: clamp(12px, 2vw, 20px);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.4; padding: var(--spacing); min-height: 100vh;
+    position: relative; overflow-x: hidden;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(circle at 20% 0%, rgba(245,158,11,0.08) 0%, transparent 35%),
+                linear-gradient(180deg, transparent 60%, rgba(5,6,10,0.9) 100%),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, transparent 1px, transparent 40px);
+    opacity: 0.6;
+  }
+
+  /* ===== HERO SLIDER ===== */
+  .hero { 
+    position: relative; 
+    height: clamp(180px, 38vw, 240px); 
+    overflow: hidden; 
+    border-left: 4px solid var(--accent); 
+    border-radius: 16px; 
+    margin-bottom: 20px; 
+    background: #000; 
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    direction: ltr;
+  }
+  .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.5s var(--ease); }
+  .slide.active { opacity: 1; }
+  .slide img { width: 100%; height: 100%; object-fit: cover; animation: slowPan 24s ease-in-out infinite alternate; }
+  @keyframes slowPan { from { transform: scale(1.05) translateX(0); } to { transform: scale(1.05) translateX(-3%); } }
+  .dots { 
+    position: absolute; 
+    bottom: 12px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    display: flex; 
+    gap: 8px; 
+    z-index: 2;
+    display: none !important;
+  }
+  .dot { width: 24px; height: 3px; border-radius: 2px; background: rgba(255,255,255,0.3); transition: var(--ease); cursor: pointer; }
+  .dot.active { background: var(--accent); width: 40px; box-shadow: 0 0 12px var(--accent-glow); }
+  
+  .hero-desc {
+  position: absolute;
+  top: 78%;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.7);
+  padding: 12px 20px;
+  font-size: 0.85rem;
+  text-align: center;
+  color: #f59e0b;
+  z-index: 10;
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+  .hero-badge { display: inline-block; padding: 5px 12px; background: var(--accent); color: #000; font-weight: 800; font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; clip-path: polygon(0 0, 100% 0, 92% 100%, 0% 100%); margin-bottom: 10px; }
+  
+
+@media (max-width: 560px) {
+  .hero-desc {
+    bottom: 10px;
+    font-size: 0.7rem;
+    padding: 8px 12px;
+  }
+}
+  
+  /* ===== Group Headers Premium ===== */
+  .group-header { 
+    grid-column: 1 / -1; 
+    margin: 5px 0 20px; 
+    padding: 0 8px; 
+    position: relative; 
+    direction: ltr;
+  }
+
+  .group-header::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 50%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.3;
+    z-index: 0;
+  }
+
+  .group-badge { 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 10px; 
+    padding: 10px 20px; 
+    background: linear-gradient(135deg, var(--surface) 0%, rgba(245,158,11,0.15) 50%, var(--surface) 100%); 
+    border: 1px solid var(--accent);
+    border-left: 4px solid var(--accent);
+    color: #fff; 
+    font-size: 0.95rem; 
+    font-weight: 800; 
+    letter-spacing: 1px; 
+    text-transform: uppercase;
+    clip-path: polygon(0 0, 100% 0, 96% 100%, 4% 100%); 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    position: relative;
+    z-index: 1;
+    transition: var(--ease);
+  }
+
+  .group-badge:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  }
+
+  .group-badge i {
+    font-size: 1.1rem;
+  }
+  
+  /* VIP badge special style */
+  .group-badge.vip-badge {
+    background: linear-gradient(135deg, #1a0f0a 0%, rgba(245,158,11,0.25) 50%, #1a0f0a 100%);
+    border-color: #f59e0b;
+    box-shadow: 0 0 12px rgba(245,158,11,0.3);
+  }
+  .group-badge.vip-badge i {
+    color: #f59e0b;
+    text-shadow: 0 0 5px #f59e0b;
+  }
+
+  /* ===== CARDS GRID ===== */
+  .grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); 
+    gap: 18px; 
+    padding: 4px 0; 
+    margin-top: 20px; 
+    direction: ltr;
+  }
+  @media (min-width: 768px) { .grid { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 24px; } }
+  .card { 
+    background: var(--surface); 
+    border: 1px solid var(--border); 
+    border-radius: var(--radius); 
+    overflow: hidden; 
+    position: relative; 
+    cursor: pointer; 
+    transition: transform 0.25s var(--ease), box-shadow 0.25s; 
+    text-decoration: none; 
+    display: block;
+    direction: ltr;
+  }
+  .card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.5); border-color: var(--accent); }
+  .card-media { position: relative; aspect-ratio: 16/9.5; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .card-media img { width: 100%; height: 100%; object-fit: cover; padding: 6px; transition: transform 0.3s var(--ease); }
+  .card:hover .card-media img { transform: scale(1.07); }
+  .card-content { padding: 8px 14px 16px; position: relative; z-index: 2; margin-top: -12px; transform: translateY(8px); }
+  .card-title { font-size: 0.85rem; font-weight: 700; line-height: 1.25; color: #fff; text-align: center; letter-spacing: 0.2px; }
+  .card-meta { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.65rem; color: var(--accent); font-weight: 600; margin-top: 4px; }
+
+  /* Timer style - in TOP LEFT of the card as requested */
+  .premium-timer {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(4px);
+    font-size: 0.7rem;
+    text-align: center;
+    padding: 4px 8px;
+    border-radius: 20px;
+    color: #f59e0b;
+    font-family: monospace;
+    font-weight: bold;
+    z-index: 20;
+    border: 1px solid rgba(245,158,11,0.4);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    letter-spacing: 1px;
+    direction: ltr;
+  }
+  .premium-timer i {
+    margin-right: 4px;
+    font-size: 0.6rem;
+  }
+
+/* 🌌 NAV-BAR */
+.nav-bar {
+  position: relative;
+  display: flex;
+  gap: 12px;
+  margin: 0 auto 32px;
+  max-width: 600px;
+  background: rgba(2, 4, 10, 0.65);
+  backdrop-filter: blur(24px);
+  border-radius: 80px;
+  padding: 6px 10px;
+  z-index: 100;
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6), 0 0 0 0.5px rgba(245, 158, 11, 0.2);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  direction: ltr;
+}
+
+.nav-item {
+  flex: 1;
+  position: relative;
+  padding: 12px 4px;
+  text-align: center;
+  text-decoration: none;
+  color: #8e9aaf;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+  border-radius: 60px;
+  background: transparent;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.nav-item i {
+  font-size: 1.4rem;
+  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+}
+
+.nav-item span {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  background: linear-gradient(135deg, #b9c3d6, #8e9aaf);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nav-item:hover {
+  transform: translateY(-3px);
+  color: #ffffff;
+}
+
+.nav-item:hover i {
+  transform: translateY(-4px) scale(1.1);
+  color: #fbbf24;
+}
+
+.nav-item.active {
+  background: linear-gradient(115deg, rgba(245, 158, 11, 0.12) 0%, rgba(245, 158, 11, 0.02) 100%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+.nav-item.active i {
+  color: #fbbf24;
+  transform: scale(1.08) translateY(-2px);
+}
+
+.nav-item.active span {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nav-item[href*="telegram"] .live-dot {
+  position: absolute;
+  top: 8px;
+  right: 18%;
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulseOnline 1.4s infinite;
+}
+
+@keyframes pulseOnline {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.25); opacity: 1; }
+}
+
+@media (max-width: 560px) {
+  .nav-bar { gap: 6px; padding: 4px 8px; }
+  .nav-item { padding: 8px 2px; gap: 4px; }
+  .nav-item i { font-size: 1.2rem; }
+  .nav-item span { font-size: 0.55rem; }
+}
+
+  /* ===== SIDEBAR ===== */
+  .sidebar { 
+    position: fixed; 
+    top: 0; 
+    right: -300px; 
+    width: 280px; 
+    height: 100%; 
+    background: rgba(12,14,20,0.98); 
+    backdrop-filter: blur(12px); 
+    padding: 20px; 
+    transition: right 0.3s var(--ease); 
+    z-index: 999; 
+    border-left: 1px solid var(--accent);
+    overflow-y: auto;
+    direction: ltr;
+  }
+  .sidebar.open { right: 0; }
+  .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease); z-index: 998; }
+  .overlay.show { opacity: 1; pointer-events: auto; }
+  .sidebar h3 { color: var(--accent); margin-bottom: 20px; font-size: 1.2rem; border-bottom: 1px solid var(--border); padding-bottom: 10px; text-align: left; }
+  .sidebar-item { padding: 12px; background: var(--surface-hover); border-radius: var(--radius); margin-bottom: 8px; cursor: pointer; transition: 0.2s; text-align: left; }
+  .sidebar-item:hover { background: var(--accent); color: #000; }
+
+  /* ===== TOAST ===== */
+  .toast { 
+    position: fixed; 
+    top: 20px; 
+    left: 50%; 
+    transform: translateX(-50%) translateY(-8px); 
+    background: var(--surface); 
+    border: 1px solid var(--accent); 
+    color: #fff; 
+    padding: 12px 20px; 
+    border-radius: var(--radius); 
+    font-weight: 700; 
+    z-index: 10000; 
+    opacity: 0; 
+    animation: toastIn 0.3s forwards; 
+    max-width: 85%; 
+    text-align: center;
+    direction: ltr;
+  }
+  @keyframes toastIn { to { transform: translateX(-50%) translateY(0); opacity: 1; } }
+
+  .container { 
+    max-width: 100%; 
+    padding: 0; 
+    margin: 0 auto; 
+    position: relative; 
+    z-index: 1; 
+    max-width: 480px; 
+    display: block;
+    direction: ltr;
+  }
+
+  @media (min-width: 1024px) { html { scroll-behavior: auto !important; } .card:hover { transition: transform 0.15s ease, box-shadow 0.15s ease; } ::-webkit-scrollbar { display: none; } body { -ms-overflow-style: none; scrollbar-width: none; } }
+    @media (min-width: 768px) { .container { max-width: 1000px; padding: 20px; } .hero { height: 320px; border-radius: 24px; } .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 18px; } .card-media { aspect-ratio: 16/9; } .card-media img { height: 110px; } .nav-bar { max-width: 400px; margin: 0 auto 28px; } }
+    @media (min-width: 1200px) { .container { max-width: 1400px; } .hero { height: 380px; } .grid { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)) !important; } .card-media img { height: 130px; } }
+    @media (orientation: landscape) and (max-height: 500px) { .hero { height: 160px; margin: 4px 0 16px; } .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important; gap: 10px; } .card-media img { height: 85px; padding: 6px; } .card-title { font-size: 0.8rem; min-height: 2.4em; } .section-title { font-size: 1.1rem; } .nav-item { padding: 10px 6px; font-size: 0.75rem; } .nav-item i { font-size: 1rem; } }
+
+  
+  @media (min-width: 768px) { .container { max-width: 800px; } }
+  
+  /* Adjustments for LTR */
+  .card-meta i {
+    margin-right: 5px;
+    margin-left: 0;
+  }
+  
+  .group-badge i {
+    margin-right: 8px;
+    margin-left: 0;
+  }
+
+  /* Premium Modal */
+.premium-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.25s ease;
+}
+.premium-modal.active {
+  visibility: visible;
+  opacity: 1;
+}
+.modal-card {
+  background: linear-gradient(145deg, #0f1119, #080a0f);
+  width: 280px;
+  max-width: 85%;
+  border-radius: 24px;
+  border: 1px solid rgba(245,158,11,0.4);
+  padding: 24px 20px 20px;
+  text-align: center;
+  position: relative;
+  transform: scale(0.95);
+  transition: transform 0.2s ease;
+}
+.premium-modal.active .modal-card {
+  transform: scale(1);
+}
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.modal-close:hover {
+  color: #fff;
+}
+.modal-icon {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+}
+.modal-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #f59e0b;
+}
+.modal-desc {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-bottom: 20px;
+}
+.watch-ad-btn {
+  background: linear-gradient(95deg, #f59e0b, #d97706);
+  border: none;
+  width: 100%;
+  padding: 12px;
+  border-radius: 40px;
+  color: #000;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.close-modal-btn {
+  background: transparent;
+  border: 1px solid #2a2e3f;
+  width: 100%;
+  padding: 10px;
+  border-radius: 40px;
+  color: #8e9aaf;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+ </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HERO SLIDER -->
+  <div class="hero">
+    <div class="slide active">
+      <img src="https://i.postimg.cc/W1vW32qQ/Screenshot-20260414-230805-Gallery.jpg" alt="Galil TV">
+    </div>
+    <div class="slide">
+      <img src="https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png" alt="beIN Sports">
+    </div>
+    <div class="slide">
+      <img src="https://i.postimg.cc/Y9tCPf06/20260303-222958.png" alt="Netflix">
+    </div>  
+    <div class="hero-badge"><i class="fas fa-crown"></i> PREMIUM</div>    
+    <div class="dots" id="dots"></div>   
+    <p class="hero-desc">Stream Your Favorite Channels In 4k Quality. Anytime, Anywhere.</p>
+    </div>
+  </div>
+
+  <!-- NAV BAR -->
+  <nav class="nav-bar">
+    <a href="#home" class="nav-item active" tabindex="0">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="match.html" class="nav-item" tabindex="0">
+      <i class="fas fa-futbol"></i>
+      <span>Event</span>
+    </a>
+    <a href="tg://resolve?domain=galiltv04" class="nav-item" tabindex="0">
+      <i class="fab fa-telegram-plane"></i>
+      <span>Chat</span>
+    </a>
+    <a href="abs.html" class="nav-item" tabindex="0">
+      <i class="fas fa-tools"></i>
+      <span>Iptv</span>
+    </a>
+    <a href="javascript:void(0)" class="nav-item" onclick="goBack()" tabindex="0">
+      <i class="fas fa-arrow-left"></i>
+      <span>Back</span>
+    </a>
+  </nav>
+
+  <!-- CARDS GRID -->
+  <div class="grid" id="cardsGrid"></div>
+</div>
+
+<!-- Premium Modal -->
+<div id="premiumModal" class="premium-modal">
+  <div class="modal-card">
+    <button class="modal-close" id="modalCloseBtn">×</button>
+    <div class="modal-icon">👑</div>
+    <h3 id="modalTitle">VIP Access</h3>
+    <p class="modal-desc">Watch ad to unlock <strong id="premiumName"></strong> for 15 min</p>
+    <div id="adStatus" class="ad-status hidden">
+      <div class="ad-spinner"></div>
+      <span>Loading ad...</span>
+    </div>
+    <button id="watchAdBtn" class="watch-ad-btn"><i class="fas fa-play"></i> Watch Ad</button>
+    <button id="closeModalBtn" class="close-modal-btn">Later</button>
+  </div>
+</div>
+
+<script>
+  // ============================================
+  // 📦 Data with Groups
+  // ============================================
+  const cardsData = [
+    // SPORTS
+    { id: 1, img: "https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png", name: "beIN SPORTS FHD", href: "go:1", group: "SPORTS" },
+    { id: 2, img: "https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png", name: "beIN SPORTS HD", href: "go:2", group: "SPORTS" },
+    { id: 3, img: "https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png", name: "beIN SPORTS SD", href: "go:3", group: "SPORTS" },
+    { id: 90, img: "https://i.postimg.cc/QMfVdgvv/gettyimages-1445531216-640x640.jpg", name: "beIN World Cup", href: "go:90", group: "SPORTS" },
+    { id: 4, img: "https://i.postimg.cc/3wYNgK89/20260209-025211.jpg", name: "Alwan Sports", href: "go:4", group: "SPORTS" },
+    { id: 5, img: "https://i.postimg.cc/kMWp9Ncn/20260209002112.jpg", name: "Thmanyah Sports", href: "go:5", group: "SPORTS" },
+    { id: 6, img: "https://i.postimg.cc/0j3Kg4Xc/images.jpg", name: "Arabic Sports", href: "go:6", group: "SPORTS" },
+    
+    // ENTERTAINMENT (Premium)
+    { id: 7, img: "https://i.postimg.cc/Y9tCPf06/20260303-222958.png", name: "Netflix", href: "go:69", group: "ENTERTAINMENT", isPremium: true, premiumKey: "netflix" },
+    { id: 8, img: "https://i.postimg.cc/yNhW80GP/osn-logo-9.jpg", name: "OSN", href: "go:8", group: "ENTERTAINMENT" },
+    { id: 15, img: "https://i.postimg.cc/K8DDN1nF/2dbab4496267132df5f82.jpg", name: "Akwam", href: "go:15", group: "ENTERTAINMENT" },
+    { id: 9, img: "https://i.postimg.cc/wvmsmzBD/aawgl5egj.png", name: "MBC Group", href: "go:9", group: "ENTERTAINMENT" },
+    { id: 10, img: "https://i.postimg.cc/Dz3NMsx3/spotify.jpg", name: "Spotify", href: "go:70", group: "ENTERTAINMENT", isPremium: true, premiumKey: "spotify" },
+    { id: 25, img: "https://i.postimg.cc/tJnC8HmJ/primevideo-seo-logo.png", name: "Amazon Prime", href: "go:71", group: "ENTERTAINMENT", isPremium: true, premiumKey: "amazon" },
+    { id: 26, img: "https://i.postimg.cc/tJnC8HmJ/primevideo-seo-logo.png", name: "BoxOffice", href: "go:72", group: "ENTERTAINMENT", isPremium: true, premiumKey: "boxoffice" },
+    
+    // COUNTRIES
+    { id: 29, img: "https://i.postimg.cc/9X6kN4PC/gros_plan_du_drapeau_ondulant_du_maroc_textures_interessantes_181624_14367.jpg", name: "Morocco", href: "go:29", group: "COUNTRIES" },
+    { id: 12, img: "https://i.postimg.cc/HLMSRhFC/images-(16).jpg", name: "Algeria", href: "go:12", group: "COUNTRIES" },
+    { id: 13, img: "https://i.postimg.cc/dQZ0XmV8/images-(15).jpg", name: "Tunisia", href: "go:13", group: "COUNTRIES" },
+    { id: 14, img: "https://i.postimg.cc/RZPcVL5R/images-(18).jpg", name: "Egypt", href: "go:14", group: "COUNTRIES" },
+    { id: 0, img: "https://i.postimg.cc/fyfGLTkm/pngtree-waving-kuwait-flag-background-picture-image-1917207.png", name: "Kuwait", href: "go:0", group: "COUNTRIES" },
+    { id: 20, img: "https://i.postimg.cc/wTQd0Fqy/Iraq.jpg", name: "Iraq", href: "go:20", group: "COUNTRIES" },
+    
+    // ISLAM & KIDS
+    { id: 27, img: "https://i.postimg.cc/tJnC8HmJ/primevideo-seo-logo.png", name: "France", href: "go:27", group: "ISLAM" },
+    { id: 28, img: "https://i.postimg.cc/tJnC8HmJ/primevideo-seo-logo.png", name: "France 3", href: "go:28", group: "ISLAM" },
+    { id: 4, img: "https://i.postimg.cc/N0K33BcT/galil-tv-logo-red.png", name: "Developer Panel", href: "go:04", group: "KIDS" }
+  ];
+
+  // Premium unlock states
+  let premiumState = {
+    netflix: { unlocked: false, expiry: null },
+    spotify: { unlocked: false, expiry: null },
+    amazon: { unlocked: false, expiry: null },
+    boxoffice: { unlocked: false, expiry: null }
+  };
+
+  let currentPremiumKey = null;
+  let countdownInterval = null;
+
+  function formatTimeLeft(ms) {
+    if (ms <= 0) return "00:00";
+    let mins = Math.floor(ms / 60000);
+    let secs = Math.floor((ms % 60000) / 1000);
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  function savePremiumState() {
+    let toStore = {};
+    for (let k in premiumState) {
+      toStore[k] = { unlocked: premiumState[k].unlocked, expiry: premiumState[k].expiry };
+    }
+    localStorage.setItem("galil_vip_rewards", JSON.stringify(toStore));
+  }
+
+  function loadPremiumState() {
+    let saved = localStorage.getItem("galil_vip_rewards");
+    if (!saved) return;
+    try {
+      let parsed = JSON.parse(saved);
+      for (let k in premiumState) {
+        if (parsed[k]) {
+          if (parsed[k].unlocked && parsed[k].expiry && parsed[k].expiry > Date.now()) {
+            premiumState[k] = { unlocked: true, expiry: parsed[k].expiry };
+          } else {
+            premiumState[k] = { unlocked: false, expiry: null };
+          }
+        }
+      }
+    } catch(e) {}
+  }
+
+  function unlockPremiumCategory(key, durationMinutes = 15) {
+    let expiryTime = Date.now() + (durationMinutes * 60 * 1000);
+    if (premiumState[key]) {
+      premiumState[key].unlocked = true;
+      premiumState[key].expiry = expiryTime;
+    }
+    savePremiumState();
+    updateAllPremiumCardsUI();
+    startGlobalTimer();
+    showMsg(`✨ ${getPremiumName(key)} unlocked for ${durationMinutes} minutes! ✨`);
+  }
+
+  function getPremiumName(key) {
+    const names = { netflix: "Netflix", spotify: "Spotify", amazon: "Amazon Prime", boxoffice: "BoxOffice" };
+    return names[key] || key;
+  }
+
+  function updateAllPremiumCardsUI() {
+    const allCards = document.querySelectorAll('.card[data-premium]');
+    allCards.forEach(card => {
+      let key = card.getAttribute('data-premium-key');
+      let state = premiumState[key];
+      let existingTimer = card.querySelector('.premium-timer');
+      
+      if (state && state.unlocked && state.expiry && state.expiry > Date.now()) {
+        let remaining = state.expiry - Date.now();
+        if (existingTimer) {
+          existingTimer.innerHTML = `<i class=""></i> ${formatTimeLeft(remaining)}`;
+        } else {
+          let timerDiv = document.createElement('div');
+          timerDiv.className = 'premium-timer';
+          timerDiv.innerHTML = `<i class="fas fa-hourglass-half"></i> ${formatTimeLeft(remaining)}`;
+          card.appendChild(timerDiv);
+        }
+        card.style.opacity = "1";
+      } 
+      else if (state && state.unlocked && state.expiry && state.expiry <= Date.now()) {
+        state.unlocked = false;
+        state.expiry = null;
+        savePremiumState();
+        if (existingTimer) existingTimer.remove();
+        showMsg(`⏰ ${getPremiumName(key)} time expired, watch ad again`);
+      }
+      else {
+        if (existingTimer) existingTimer.remove();
+        card.style.opacity = "1";
+      }
+    });
+  }
+
+  function startGlobalTimer() {
+    if (countdownInterval) clearInterval(countdownInterval);
+    countdownInterval = setInterval(() => {
+      let anyChange = false;
+      for (let k in premiumState) {
+        let s = premiumState[k];
+        if (s.unlocked && s.expiry && s.expiry <= Date.now()) {
+          s.unlocked = false;
+          s.expiry = null;
+          anyChange = true;
+        }
+      }
+      if (anyChange) {
+        savePremiumState();
+        updateAllPremiumCardsUI();
+      } else {
+        updateAllPremiumCardsUI();
+      }
+    }, 1000);
+  }
+
+  // ============================================
+  // 🎬 Rewarded Ads Manager (مثل الكود القديم)
+  // ============================================
+  const RewardedAds = {
+    isLoaded: false,
+    currentCategoryKey: null,
+    
+    init: function() {
+      this.setupModalListeners();
+      this.preloadAd();
+    },
+    
+    preloadAd: function() {
+      this.isLoaded = false;
+      
+      // ✅ استخدام نفس واجهة Android من الكود القديم
+      if (window.Android && typeof window.Android.loadRewardedAd === 'function') {
+        console.log('📡 Loading rewarded ad from Android');
+        window.Android.loadRewardedAd();
+        
+        // مهلة: إذا لم يتم التحميل خلال 10 ثواني، حاول مجدداً
+        setTimeout(() => {
+          if (!this.isLoaded) {
+            console.log('⚠️ Ad loading timeout, retrying...');
+            window.Android.loadRewardedAd();
+          }
+        }, 10000);
+      } else {
+        console.log('⚠️ Android bridge not available, using test mode');
+        this.isLoaded = true;
+      }
+    },
+    
+    showModal: function(categoryKey, categoryName) {
+      this.currentCategoryKey = categoryKey;
+      const modal = document.getElementById('premiumModal');
+      const titleEl = document.getElementById('modalTitle');
+      const premiumNameSpan = document.getElementById('premiumName');
+      const watchBtn = document.getElementById('watchAdBtn');
+      const adStatus = document.getElementById('adStatus');
+      
+      if (titleEl) titleEl.innerHTML = `${categoryName} VIP`;
+      if (premiumNameSpan) premiumNameSpan.innerText = categoryName;
+      
+      // تحديث حالة الزر
+      if (watchBtn) {
+        watchBtn.disabled = !this.isLoaded;
+      }
+      if (adStatus) adStatus.classList.add('hidden');
+      
+      modal.classList.add('active');
+    },
+    
+    hideModal: function() {
+      const modal = document.getElementById('premiumModal');
+      const adStatus = document.getElementById('adStatus');
+      modal.classList.remove('active');
+      if (adStatus) adStatus.classList.add('hidden');
+      this.currentCategoryKey = null;
+    },
+    
+    setupModalListeners: function() {
+      const closeBtn = document.getElementById('modalCloseBtn');
+      const laterBtn = document.getElementById('closeModalBtn');
+      const watchBtn = document.getElementById('watchAdBtn');
+      
+      if (closeBtn) closeBtn.onclick = () => this.hideModal();
+      if (laterBtn) laterBtn.onclick = () => this.hideModal();
+      if (watchBtn) watchBtn.onclick = () => this.showAd();
+    },
+    
+    showAd: function() {
+      const btn = document.getElementById('watchAdBtn');
+      const adStatus = document.getElementById('adStatus');
+      const key = this.currentCategoryKey;
+      
+      if (!key) {
+        console.error('No category key set');
+        return;
+      }
+      
+      btn.disabled = true;
+      if (adStatus) adStatus.classList.remove('hidden');
+      
+      if (window.Android && typeof window.Android.showRewardedAd === 'function') {
+        const categoryName = getPremiumName(key);
+        console.log('📡 Showing rewarded ad for:', key, categoryName);
+        // ✅ تمرير المعرف والاسم إلى Android
+        window.Android.showRewardedAd(key, categoryName);
+      } else {
+        // وضع تجريبي (للاختبار)
+        console.log('⚠️ Test mode: simulating ad');
+        setTimeout(() => {
+          this.onAdRewarded();
+        }, 2000);
+      }
+    },
+    
+    // ✅ هذه الدوال سيتم استدعاؤها من Android عبر JavascriptInterface
+    
+    onAdLoaded: function() {
+      console.log('✅ Rewarded ad loaded successfully');
+      this.isLoaded = true;
+      const btn = document.getElementById('watchAdBtn');
+      const adStatus = document.getElementById('adStatus');
+      if (btn) btn.disabled = false;
+      if (adStatus) adStatus.classList.add('hidden');
+    },
+    
+    onAdFailed: function() {
+      console.log('❌ Rewarded ad failed to load');
+      this.isLoaded = false;
+      const btn = document.getElementById('watchAdBtn');
+      const adStatus = document.getElementById('adStatus');
+      if (btn) btn.disabled = false;
+      if (adStatus) adStatus.classList.add('hidden');
+      showMsg('⚠️ Ad not available, please try again');
+      
+      // محاولة تحميل إعلان جديد
+      setTimeout(() => this.preloadAd(), 5000);
+    },
+    
+    onAdRewarded: function() {
+      console.log('🎉 Reward earned! Unlocking category:', this.currentCategoryKey);
+      
+      const key = this.currentCategoryKey;
+      if (key) {
+        unlockPremiumCategory(key, 15);
+      }
+      
+      this.hideModal();
+      
+      // فتح الرابط تلقائياً بعد ثانية
+      setTimeout(() => {
+        const targetCard = cardsData.find(c => c.premiumKey === key);
+        if (targetCard && targetCard.href) {
+          window.location.href = targetCard.href;
+        }
+      }, 800);
+      
+      // تجهيز إعلان جديد
+      setTimeout(() => this.preloadAd(), 3000);
+    },
+    
+    onAdNotAvailable: function() {
+      console.log('⚠️ Ad not available at this time');
+      const btn = document.getElementById('watchAdBtn');
+      const adStatus = document.getElementById('adStatus');
+      if (btn) btn.disabled = false;
+      if (adStatus) adStatus.classList.add('hidden');
+      showMsg('⚠️ No ad available, please try again later');
+    }
+  };
+
+  // ربط الدوال للوصول من Android
+  window.RewardedAds = RewardedAds;
+
+  // ============================================
+  // 🎠 SLIDER
+  // ============================================
+  const slides = document.querySelectorAll(".slide");
+  let slideIndex = 0;
+  function showSlide(i) {
+    slides[slideIndex]?.classList.remove("active");
+    slideIndex = i;
+    slides[slideIndex]?.classList.add("active");
+  }
+  setInterval(() => { showSlide((slideIndex + 1) % slides.length); }, 5000);
+
+  // ============================================
+  // 🃏 RENDER CARDS
+  // ============================================
+  function renderCards() {
+    const grid = document.getElementById("cardsGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    
+    const groupOrder = ["SPORTS", "ENTERTAINMENT", "COUNTRIES", "ISLAM", "KIDS"];
+    const groupIcons = {
+      "SPORTS": "fa-futbol",
+      "ENTERTAINMENT": "fa-film",
+      "COUNTRIES": "fa-flag",
+      "ISLAM": "fa-mosque",
+      "KIDS": "fa-child"
+    };
+    
+    const groupedCards = {};
+    cardsData.forEach(card => {
+      let group = card.group;
+      if (!groupedCards[group]) groupedCards[group] = [];
+      groupedCards[group].push(card);
+    });
+    
+    groupOrder.forEach(groupName => {
+      const cardsInGroup = groupedCards[groupName];
+      if (cardsInGroup && cardsInGroup.length > 0) {
+        const groupHeader = document.createElement("div");
+        groupHeader.className = "group-header";
+        let vipClass = groupName === "ENTERTAINMENT" ? "vip-badge" : "";
+        groupHeader.innerHTML = `
+          <div class="group-badge ${vipClass}">
+            <i class="fas ${groupIcons[groupName] || 'fa-tag'}"></i>
+            ${groupName}
+          </div>
+        `;
+        grid.appendChild(groupHeader);
+        
+        cardsInGroup.forEach(card => {
+          const cardDiv = document.createElement("div");
+          cardDiv.className = "card";
+          
+          if (card.isPremium) {
+            cardDiv.setAttribute('data-premium', 'true');
+            cardDiv.setAttribute('data-premium-key', card.premiumKey);
+          }
+          
+          cardDiv.onclick = () => { 
+            if (card.isPremium) {
+              let key = card.premiumKey;
+              let state = premiumState[key];
+              if (state && state.unlocked && state.expiry && state.expiry > Date.now()) {
+                let remaining = Math.floor((state.expiry - Date.now()) / 60000);
+                showMsg(`🎬 Opening ${card.name}... (${remaining} min left)`);
+                window.location.href = card.href;
+              } else {
+                RewardedAds.showModal(key, card.name);
+              }
+            } else {
+              if (card.href) {
+                window.location.href = card.href;
+              } else {
+                showMsg(`🔜 ${card.name} - Coming Soon`);
+              }
+            }
+          };
+          
+          const mediaDiv = document.createElement("div");
+          mediaDiv.className = "card-media";
+          const img = document.createElement("img");
+          img.src = card.img;
+          img.alt = card.name;
+          img.loading = "lazy";
+          mediaDiv.appendChild(img);
+          
+          const contentDiv = document.createElement("div");
+          contentDiv.className = "card-content";
+          const title = document.createElement("div");
+          title.className = "card-title";
+          title.innerText = card.isPremium ? card.name + ' 👑' : card.name;
+          const meta = document.createElement("div");
+          meta.className = "card-meta";
+          meta.innerHTML = card.isPremium ? '<i class="fas fa-crown"></i> Premium' : '<i class="fas fa-play-circle"></i> Watch Now';
+          contentDiv.appendChild(title);
+          contentDiv.appendChild(meta);
+          
+          cardDiv.appendChild(mediaDiv);
+          cardDiv.appendChild(contentDiv);
+          grid.appendChild(cardDiv);
+        });
+      }
+    });
+    
+    updateAllPremiumCardsUI();
+  }
+
+  // ============================================
+  // 🍞 TOAST MESSAGE
+  // ============================================
+  window.showMsg = function(txt) {
+    const existing = document.querySelector(".toast");
+    if (existing) existing.remove();
+    const el = document.createElement("div");
+    el.className = "toast";
+    el.innerHTML = `<i class="fas fa-info-circle"></i> ${txt}`;
+    document.body.appendChild(el);
+    setTimeout(() => {
+      el.style.opacity = "0";
+      setTimeout(() => el.remove(), 300);
+    }, 2500);
+  };
+
+  // ============================================
+  // 📱 GO BACK
+  // ============================================
+  window.goBack = function() { 
+    if (window.history.length > 1) window.history.back(); 
+    else showMsg("🏠 Home"); 
+  };
+
+  // ============================================
+  // 🚀 INITIALIZATION
+  // ============================================
+  document.addEventListener("DOMContentLoaded", () => {
+    loadPremiumState();
+    renderCards();
+    startGlobalTimer();
+    RewardedAds.init();
+    
+    // إغلاق المودال عند النقر على الخلفية
+    const modal = document.getElementById('premiumModal');
+    modal.addEventListener('click', (e) => { 
+      if (e.target === modal) RewardedAds.hideModal(); 
+    });
+  });
+</script>
+
+</body>
+  </html>
