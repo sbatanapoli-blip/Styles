@@ -1,203 +1,160 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#05060a">
-<title>GaLiL TV Pro</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#05060a">
+  <title>GaLiL TV Pro | Premium Entertainment</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* 🎙️ PRO BROADCAST UI */
+    :root {
+      --bg: #05060a;
+      --surface: #0c0e14;
+      --surface-hover: #141720;
+      --accent: #f59e0b;
+      --accent-glow: rgba(245, 158, 11, 0.25);
+      --text: #f9fafb;
+      --text-muted: #6b7280;
+      --border: #1f2937;
+      --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+      --radius: 8px;
+      --spacing: clamp(12px, 2vw, 20px);
+    }
 
-<style>
-  /* 🎙️ PRO BROADCAST UI */
-  :root {
-    --bg: #05060a;
-    --surface: #0c0e14;
-    --surface-hover: #141720;
-    --accent: #f59e0b;
-    --accent-glow: rgba(245, 158, 11, 0.25);
-    --text: #f9fafb;
-    --text-muted: #6b7280;
-    --border: #1f2937;
-    --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-    --radius: 8px;
-    --spacing: clamp(12px, 2vw, 20px);
-  }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.4; padding: var(--spacing); min-height: 100vh;
+      position: relative; overflow-x: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background: radial-gradient(circle at 20% 0%, rgba(245,158,11,0.08) 0%, transparent 35%),
+                  linear-gradient(180deg, transparent 60%, rgba(5,6,10,0.9) 100%),
+                  repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, transparent 1px, transparent 40px);
+      opacity: 0.6;
+    }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  html { scroll-behavior: smooth; font-size: 16px; }
-  body {
-    background: var(--bg); color: var(--text);
-    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-    line-height: 1.4; padding: var(--spacing); min-height: 100vh;
-    position: relative; overflow-x: hidden;
-  }
-  body::before {
-    content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-    background: radial-gradient(circle at 20% 0%, rgba(245,158,11,0.08) 0%, transparent 35%),
-                linear-gradient(180deg, transparent 60%, rgba(5,6,10,0.9) 100%),
-                repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, transparent 1px, transparent 40px);
-    opacity: 0.6;
-  }
+    /* ===== HERO SLIDER ===== */
+    .hero { 
+      position: relative; 
+      height: clamp(180px, 38vw, 240px); 
+      overflow: hidden; 
+      border-left: 4px solid var(--accent); 
+      border-radius: 16px; 
+      margin-bottom: 20px; 
+      background: #000; 
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    }
+    .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.5s var(--ease); }
+    .slide.active { opacity: 1; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; animation: slowPan 24s ease-in-out infinite alternate; }
+    @keyframes slowPan { from { transform: scale(1.05) translateX(0); } to { transform: scale(1.05) translateX(-3%); } }
+    
+    .hero-desc {
+      position: absolute;
+      bottom: 12px;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      padding: 8px 12px;
+      font-size: 0.7rem;
+      text-align: center;
+      color: #f59e0b;
+      z-index: 10;
+      font-weight: 500;
+    }  
+  .hero-badge { display: inline-block; padding: 5px 12px; background: var(--accent); color: #000; font-weight: 800; font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; clip-path: polygon(0 0, 100% 0, 92% 100%, 0% 100%); margin-bottom: 10px; } 
 
-  /* ===== HERO SLIDER ===== */
-  .hero { 
-    position: relative; 
-    height: clamp(180px, 38vw, 240px); 
-    overflow: hidden; 
-    border-left: 4px solid var(--accent); 
-    border-radius: 16px; 
-    margin-bottom: 20px; 
-    background: #000; 
-    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-    direction: ltr;
-  }
-  .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.5s var(--ease); }
-  .slide.active { opacity: 1; }
-  .slide img { width: 100%; height: 100%; object-fit: cover; animation: slowPan 24s ease-in-out infinite alternate; }
-  @keyframes slowPan { from { transform: scale(1.05) translateX(0); } to { transform: scale(1.05) translateX(-3%); } }
-  .dots { 
-    position: absolute; 
-    bottom: 12px; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    display: flex; 
-    gap: 8px; 
-    z-index: 2;
-    display: none !important;
-  }
-  .dot { width: 24px; height: 3px; border-radius: 2px; background: rgba(255,255,255,0.3); transition: var(--ease); cursor: pointer; }
-  .dot.active { background: var(--accent); width: 40px; box-shadow: 0 0 12px var(--accent-glow); }
-  
-  .hero-desc {
-  position: absolute;
-  top: 78%;
-  left: 0;
-  right: 0;
-  background: rgba(0,0,0,0.7);
-  padding: 12px 20px;
-  font-size: 0.85rem;
-  text-align: center;
-  color: #f59e0b;
-  z-index: 10;
-  margin: 0;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-}
-  .hero-badge { display: inline-block; padding: 5px 12px; background: var(--accent); color: #000; font-weight: 800; font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; clip-path: polygon(0 0, 100% 0, 92% 100%, 0% 100%); margin-bottom: 10px; }
-  
+    /* ===== Group Headers Premium ===== */
+    .group-header { 
+      grid-column: 1 / -1; 
+      margin: 5px 0 20px; 
+      padding: 0 8px; 
+      position: relative; 
+    }
+    .group-header::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; top: 50%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.3;
+      z-index: 0;
+    }
+    .group-badge { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 10px; 
+      padding: 10px 20px; 
+      background: linear-gradient(135deg, var(--surface) 0%, rgba(245,158,11,0.15) 50%, var(--surface) 100%); 
+      border: 1px solid var(--accent);
+      border-left: 4px solid var(--accent);
+      color: #fff; 
+      font-size: 0.95rem; 
+      font-weight: 800; 
+      letter-spacing: 1px; 
+      text-transform: uppercase;
+      clip-path: polygon(0 0, 100% 0, 96% 100%, 4% 100%); 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      position: relative;
+      z-index: 1;
+      transition: var(--ease);
+    }
+    .group-badge.vip-badge {
+      background: linear-gradient(135deg, #1a0f0a 0%, rgba(245,158,11,0.25) 50%, #1a0f0a 100%);
+      border-color: #f59e0b;
+      box-shadow: 0 0 12px rgba(245,158,11,0.3);
+    }
 
-@media (max-width: 560px) {
-  .hero-desc {
-    bottom: 10px;
-    font-size: 0.7rem;
-    padding: 8px 12px;
-  }
-}
-  
-  /* ===== Group Headers Premium ===== */
-  .group-header { 
-    grid-column: 1 / -1; 
-    margin: 5px 0 20px; 
-    padding: 0 8px; 
-    position: relative; 
-    direction: ltr;
-  }
+    /* ===== CARDS GRID ===== */
+    .grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); 
+      gap: 18px; 
+      padding: 4px 0; 
+      margin-top: 20px; 
+    }
+    @media (min-width: 768px) { .grid { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 24px; } }
+    .card { 
+      background: var(--surface); 
+      border: 1px solid var(--border); 
+      border-radius: var(--radius); 
+      overflow: hidden; 
+      position: relative; 
+      cursor: pointer; 
+      transition: transform 0.25s var(--ease), box-shadow 0.25s; 
+      text-decoration: none; 
+      display: block;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.5); border-color: var(--accent); }
+    .card-media { position: relative; aspect-ratio: 16/9.5; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .card-media img { width: 100%; height: 100%; object-fit: contain; padding: 6px; transition: transform 0.3s var(--ease); }
+    .card:hover .card-media img { transform: scale(1.07); }
+    .card-content { padding: 8px 14px 16px; position: relative; z-index: 2; margin-top: -12px; transform: translateY(8px); }
+    .card-title { font-size: 0.85rem; font-weight: 700; line-height: 1.25; color: #fff; text-align: center; letter-spacing: 0.2px; }
+    .card-meta { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.65rem; color: var(--accent); font-weight: 600; margin-top: 4px; }
+    .card-live { position: absolute; top: 8px; left: 8px; background: #dc2626; color: #fff; font-size: 0.6rem; font-weight: 800; padding: 3px 8px; border-radius: 4px; z-index: 5; }
+    .card-live.vip { background: #f59e0b; color: #000; }
 
-  .group-header::before {
-    content: '';
+    /* Premium Timer */
+    .premium-timer {
     position: absolute;
-    left: 0; right: 0; top: 50%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    opacity: 0.3;
-    z-index: 0;
-  }
-
-  .group-badge { 
-    display: inline-flex; 
-    align-items: center; 
-    gap: 10px; 
-    padding: 10px 20px; 
-    background: linear-gradient(135deg, var(--surface) 0%, rgba(245,158,11,0.15) 50%, var(--surface) 100%); 
-    border: 1px solid var(--accent);
-    border-left: 4px solid var(--accent);
-    color: #fff; 
-    font-size: 0.95rem; 
-    font-weight: 800; 
-    letter-spacing: 1px; 
-    text-transform: uppercase;
-    clip-path: polygon(0 0, 100% 0, 96% 100%, 4% 100%); 
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    position: relative;
-    z-index: 1;
-    transition: var(--ease);
-  }
-
-  .group-badge:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-  }
-
-  .group-badge i {
-    font-size: 1.1rem;
-  }
-  
-  /* VIP badge special style */
-  .group-badge.vip-badge {
-    background: linear-gradient(135deg, #1a0f0a 0%, rgba(245,158,11,0.25) 50%, #1a0f0a 100%);
-    border-color: #f59e0b;
-    box-shadow: 0 0 12px rgba(245,158,11,0.3);
-  }
-  .group-badge.vip-badge i {
-    color: #f59e0b;
-    text-shadow: 0 0 5px #f59e0b;
-  }
-
-  /* ===== CARDS GRID ===== */
-  .grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); 
-    gap: 18px; 
-    padding: 4px 0; 
-    margin-top: 20px; 
-    direction: ltr;
-  }
-  @media (min-width: 768px) { .grid { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 24px; } }
-  .card { 
-    background: var(--surface); 
-    border: 1px solid var(--border); 
-    border-radius: var(--radius); 
-    overflow: hidden; 
-    position: relative; 
-    cursor: pointer; 
-    transition: transform 0.25s var(--ease), box-shadow 0.25s; 
-    text-decoration: none; 
-    display: block;
-    direction: ltr;
-  }
-  .card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.5); border-color: var(--accent); }
-  .card-media { position: relative; aspect-ratio: 16/9.5; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-  .card-media img { width: 100%; height: 100%; object-fit: cover; padding: 6px; transition: transform 0.3s var(--ease); }
-  .card:hover .card-media img { transform: scale(1.07); }
-  .card-content { padding: 8px 14px 16px; position: relative; z-index: 2; margin-top: -12px; transform: translateY(8px); }
-  .card-title { font-size: 0.85rem; font-weight: 700; line-height: 1.25; color: #fff; text-align: center; letter-spacing: 0.2px; }
-  .card-meta { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.65rem; color: var(--accent); font-weight: 600; margin-top: 4px; }
-
-  /* Timer style - in TOP LEFT of the card as requested */
-  .premium-timer {
-    position: absolute;
-    top: 8px;
-    left: 8px;
+    top: 3px;
+    left: 3px;
     background: rgba(0,0,0,0.85);
     backdrop-filter: blur(4px);
     font-size: 0.7rem;
     text-align: center;
     padding: 4px 8px;
     border-radius: 20px;
-    color: #f59e0b;
+    color: #f00;
     font-family: monospace;
     font-weight: bold;
     z-index: 20;
@@ -206,284 +163,182 @@
     letter-spacing: 1px;
     direction: ltr;
   }
-  .premium-timer i {
-    margin-right: 4px;
-    font-size: 0.6rem;
-  }
+    .premium-timer .extend-btn {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-/* 🌌 NAV-BAR */
-.nav-bar {
-  position: relative;
-  display: flex;
-  gap: 12px;
-  margin: 0 auto 32px;
-  max-width: 600px;
-  background: rgba(2, 4, 10, 0.65);
-  backdrop-filter: blur(24px);
-  border-radius: 80px;
-  padding: 6px 10px;
-  z-index: 100;
-  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6), 0 0 0 0.5px rgba(245, 158, 11, 0.2);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow: hidden;
-  direction: ltr;
-}
+    /* NAV-BAR */
+    .nav-bar {
+      position: relative;
+      display: flex;
+      gap: 12px;
+      margin: 0 auto 32px;
+      max-width: 600px;
+      background: rgba(2, 4, 10, 0.65);
+      backdrop-filter: blur(24px);
+      border-radius: 80px;
+      padding: 6px 10px;
+      z-index: 100;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6), 0 0 0 0.5px rgba(245, 158, 11, 0.2);
+    }
+    .nav-item {
+      flex: 1;
+      position: relative;
+      padding: 12px 4px;
+      text-align: center;
+      text-decoration: none;
+      color: #8e9aaf;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+      border-radius: 60px;
+      background: transparent;
+      z-index: 2;
+      cursor: pointer;
+    }
+    .nav-item i { font-size: 1.4rem; transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.2); }
+    .nav-item span { font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px; background: linear-gradient(135deg, #b9c3d6, #8e9aaf); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .nav-item:hover { transform: translateY(-3px); color: #ffffff; }
+    .nav-item:hover i { transform: translateY(-4px) scale(1.1); color: #fbbf24; }
+    .nav-item.active { background: linear-gradient(115deg, rgba(245, 158, 11, 0.12) 0%, rgba(245, 158, 11, 0.02) 100%); }
+    .nav-item.active i { color: #fbbf24; transform: scale(1.08) translateY(-2px); }
+    .nav-item.active span { background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
-.nav-item {
-  flex: 1;
-  position: relative;
-  padding: 12px 4px;
-  text-align: center;
-  text-decoration: none;
-  color: #8e9aaf;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.2);
-  border-radius: 60px;
-  background: transparent;
-  z-index: 2;
-  cursor: pointer;
-}
-
-.nav-item i {
-  font-size: 1.4rem;
-  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.2);
-}
-
-.nav-item span {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  background: linear-gradient(135deg, #b9c3d6, #8e9aaf);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.nav-item:hover {
-  transform: translateY(-3px);
-  color: #ffffff;
-}
-
-.nav-item:hover i {
-  transform: translateY(-4px) scale(1.1);
-  color: #fbbf24;
-}
-
-.nav-item.active {
-  background: linear-gradient(115deg, rgba(245, 158, 11, 0.12) 0%, rgba(245, 158, 11, 0.02) 100%);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  transform: translateY(-1px);
-}
-
-.nav-item.active i {
-  color: #fbbf24;
-  transform: scale(1.08) translateY(-2px);
-}
-
-.nav-item.active span {
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.nav-item[href*="telegram"] .live-dot {
-  position: absolute;
-  top: 8px;
-  right: 18%;
-  width: 8px;
-  height: 8px;
-  background: #10b981;
-  border-radius: 50%;
-  box-shadow: 0 0 8px #10b981;
-  animation: pulseOnline 1.4s infinite;
-}
-
-@keyframes pulseOnline {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.25); opacity: 1; }
-}
-
-@media (max-width: 560px) {
-  .nav-bar { gap: 6px; padding: 4px 8px; }
-  .nav-item { padding: 8px 2px; gap: 4px; }
-  .nav-item i { font-size: 1.2rem; }
-  .nav-item span { font-size: 0.55rem; }
-}
-
-  /* ===== SIDEBAR ===== */
-  .sidebar { 
-    position: fixed; 
-    top: 0; 
-    right: -300px; 
-    width: 280px; 
-    height: 100%; 
-    background: rgba(12,14,20,0.98); 
-    backdrop-filter: blur(12px); 
-    padding: 20px; 
-    transition: right 0.3s var(--ease); 
-    z-index: 999; 
-    border-left: 1px solid var(--accent);
-    overflow-y: auto;
-    direction: ltr;
-  }
-  .sidebar.open { right: 0; }
-  .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); opacity: 0; pointer-events: none; transition: opacity 0.3s var(--ease); z-index: 998; }
-  .overlay.show { opacity: 1; pointer-events: auto; }
-  .sidebar h3 { color: var(--accent); margin-bottom: 20px; font-size: 1.2rem; border-bottom: 1px solid var(--border); padding-bottom: 10px; text-align: left; }
-  .sidebar-item { padding: 12px; background: var(--surface-hover); border-radius: var(--radius); margin-bottom: 8px; cursor: pointer; transition: 0.2s; text-align: left; }
-  .sidebar-item:hover { background: var(--accent); color: #000; }
-
-  /* ===== TOAST ===== */
-  .toast { 
-    position: fixed; 
-    top: 20px; 
-    left: 50%; 
-    transform: translateX(-50%) translateY(-8px); 
-    background: var(--surface); 
-    border: 1px solid var(--accent); 
-    color: #fff; 
-    padding: 12px 20px; 
-    border-radius: var(--radius); 
-    font-weight: 700; 
-    z-index: 10000; 
-    opacity: 0; 
-    animation: toastIn 0.3s forwards; 
-    max-width: 85%; 
-    text-align: center;
-    direction: ltr;
-  }
-  @keyframes toastIn { to { transform: translateX(-50%) translateY(0); opacity: 1; } }
-
-  .container { 
-    max-width: 100%; 
-    padding: 0; 
-    margin: 0 auto; 
-    position: relative; 
-    z-index: 1; 
-    max-width: 480px; 
-    display: block;
-    direction: ltr;
-  }
-
-  @media (min-width: 1024px) { html { scroll-behavior: auto !important; } .card:hover { transition: transform 0.15s ease, box-shadow 0.15s ease; } ::-webkit-scrollbar { display: none; } body { -ms-overflow-style: none; scrollbar-width: none; } }
-    @media (min-width: 768px) { .container { max-width: 1000px; padding: 20px; } .hero { height: 320px; border-radius: 24px; } .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 18px; } .card-media { aspect-ratio: 16/9; } .card-media img { height: 110px; } .nav-bar { max-width: 400px; margin: 0 auto 28px; } }
-    @media (min-width: 1200px) { .container { max-width: 1400px; } .hero { height: 380px; } .grid { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)) !important; } .card-media img { height: 130px; } }
-    @media (orientation: landscape) and (max-height: 500px) { .hero { height: 160px; margin: 4px 0 16px; } .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important; gap: 10px; } .card-media img { height: 85px; padding: 6px; } .card-title { font-size: 0.8rem; min-height: 2.4em; } .section-title { font-size: 1.1rem; } .nav-item { padding: 10px 6px; font-size: 0.75rem; } .nav-item i { font-size: 1rem; } }
-
-  
-  @media (min-width: 768px) { .container { max-width: 800px; } }
-  
-  /* Adjustments for LTR */
-  .card-meta i {
-    margin-right: 5px;
-    margin-left: 0;
-  }
-  
-  .group-badge i {
-    margin-right: 8px;
-    margin-left: 0;
-  }
-
-  /* Premium Modal */
-.premium-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.85);
-  backdrop-filter: blur(8px);
-  z-index: 2000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.25s ease;
-}
-.premium-modal.active {
-  visibility: visible;
-  opacity: 1;
-}
-.modal-card {
-  background: linear-gradient(145deg, #0f1119, #080a0f);
-  width: 280px;
-  max-width: 85%;
-  border-radius: 24px;
-  border: 1px solid rgba(245,158,11,0.4);
-  padding: 24px 20px 20px;
-  text-align: center;
-  position: relative;
-  transform: scale(0.95);
-  transition: transform 0.2s ease;
-}
-.premium-modal.active .modal-card {
-  transform: scale(1);
-}
-.modal-close {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  background: none;
-  border: none;
-  color: #6b7280;
-  font-size: 1.4rem;
-  cursor: pointer;
-  padding: 4px 8px;
-}
-.modal-close:hover {
-  color: #fff;
-}
-.modal-icon {
-  font-size: 2.5rem;
-  margin-bottom: 8px;
-}
-.modal-card h3 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: #f59e0b;
-}
-.modal-desc {
-  font-size: 0.75rem;
-  color: #9ca3af;
-  margin-bottom: 20px;
-}
-.watch-ad-btn {
-  background: linear-gradient(95deg, #f59e0b, #d97706);
-  border: none;
-  width: 100%;
-  padding: 12px;
-  border-radius: 40px;
-  color: #000;
-  font-weight: 700;
-  font-size: 0.85rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-.close-modal-btn {
-  background: transparent;
-  border: 1px solid #2a2e3f;
-  width: 100%;
-  padding: 10px;
-  border-radius: 40px;
-  color: #8e9aaf;
-  font-size: 0.75rem;
-  cursor: pointer;
-}
- </style>
+    /* Premium Modal */
+    .premium-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.25s ease;
+    }
+    .premium-modal.active {
+      visibility: visible;
+      opacity: 1;
+    }
+    .modal-card {
+      background: linear-gradient(145deg, #0f1119, #080a0f);
+      width: 280px;
+      max-width: 85%;
+      border-radius: 24px;
+      border: 1px solid rgba(245,158,11,0.4);
+      padding: 24px 20px 20px;
+      text-align: center;
+      position: relative;
+      transform: scale(0.95);
+      transition: transform 0.2s ease;
+    }
+    .premium-modal.active .modal-card {
+      transform: scale(1);
+    }
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: #6b7280;
+      font-size: 1.4rem;
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+    .modal-close:hover { color: #fff; }
+    .modal-icon { font-size: 2.5rem; margin-bottom: 8px; }
+    .modal-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; color: #f59e0b; }
+    .modal-desc { font-size: 0.75rem; color: #9ca3af; margin-bottom: 20px; }
+    .watch-ad-btn {
+      background: linear-gradient(95deg, #f59e0b, #d97706);
+      border: none;
+      width: 100%;
+      padding: 12px;
+      border-radius: 40px;
+      color: #000;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .watch-ad-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .close-modal-btn {
+      background: transparent;
+      border: 1px solid #2a2e3f;
+      width: 100%;
+      padding: 10px;
+      border-radius: 40px;
+      color: #8e9aaf;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+    .ad-status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 0.7rem;
+      color: var(--accent);
+    }
+    .ad-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hidden { display: none !important; }
+    .toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: var(--radius);
+      font-weight: 700;
+      z-index: 10000;
+      opacity: 0;
+      animation: toastIn 0.3s forwards;
+      max-width: 85%;
+      text-align: center;
+    }
+    @keyframes toastIn { to { transform: translateX(-50%) translateY(0); opacity: 1; } }
+    .container { max-width: 100%; padding: 0; margin: 0 auto; position: relative; z-index: 1; max-width: 480px; display: block; }
+    @media (min-width: 768px) { .container { max-width: 1000px; padding: 20px; } .hero { height: 320px; border-radius: 24px; } .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 18px; } .nav-bar { max-width: 400px; margin: 0 auto 28px; } }
+    @media (min-width: 1200px) { .container { max-width: 1400px; } .hero { height: 380px; } .grid { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)) !important; } }
+  </style>
 </head>
 <body>
 
@@ -501,9 +356,8 @@
       <img src="https://i.postimg.cc/Y9tCPf06/20260303-222958.png" alt="Netflix">
     </div>  
     <div class="hero-badge"><i class="fas fa-crown"></i> PREMIUM</div>    
-    <div class="dots" id="dots"></div>   
-    <p class="hero-desc">Stream Your Favorite Channels In 4k Quality. Anytime, Anywhere.</p>
-    </div>
+    <div class="dots" id="dots"></div>  
+    <p class="hero-desc">Stream Your Favorite Channels In 4K Quality. Anytime, Anywhere.</p>
   </div>
 
   <!-- NAV BAR -->
@@ -551,14 +405,543 @@
 </div>
 
 <script>
+  // ============================================
+  // 📦 Data with Groups
+  // ============================================
+  const cardsData = [
+    // SPORTS
+    { id: 1, img: "https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png", name: "beIN SPORTS FHD", href: "go:1", group: "SPORTS" },
+    { id: 2, img: "https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png", name: "beIN SPORTS HD", href: "go:2", group: "SPORTS" },
+    { id: 3, img: "https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png", name: "beIN SPORTS SD", href: "go:3", group: "SPORTS" },
+    { id: 90, img: "https://i.postimg.cc/QMfVdgvv/gettyimages-1445531216-640x640.jpg", name: "beIN World Cup", href: "go:90", group: "SPORTS" },
+    { id: 4, img: "https://i.postimg.cc/3wYNgK89/20260209-025211.jpg", name: "Alwan Sports", href: "go:4", group: "SPORTS" },
+    { id: 5, img: "https://i.postimg.cc/kMWp9Ncn/20260209002112.jpg", name: "Thmanyah Sports", href: "go:5", group: "SPORTS" },
+    { id: 6, img: "https://i.postimg.cc/0j3Kg4Xc/images.jpg", name: "Arabic Sports", href: "go:6", group: "SPORTS" },
+    
+    // ENTERTAINMENT (Premium)
+    { id: 7, img: "https://i.postimg.cc/Y9tCPf06/20260303-222958.png", name: "Netflix", href: "go:69", group: "ENTERTAINMENT", isPremium: true, premiumKey: "netflix" },
+    { id: 8, img: "https://i.postimg.cc/yNhW80GP/osn-logo-9.jpg", name: "OSN", href: "go:8", group: "ENTERTAINMENT" },
+    { id: 15, img: "https://i.postimg.cc/K8DDN1nF/2dbab4496267132df5f82.jpg", name: "Akwam", href: "go:15", group: "ENTERTAINMENT" },
+    { id: 9, img: "https://i.postimg.cc/wvmsmzBD/aawgl5egj.png", name: "MBC Group", href: "go:9", group: "ENTERTAINMENT" },
+    { id: 10, img: "https://i.postimg.cc/Dz3NMsx3/spotify.jpg", name: "Spotify", href: "go:70", group: "ENTERTAINMENT", isPremium: true, premiumKey: "spotify" },
+    { id: 25, img: "https://i.postimg.cc/tJnC8HmJ/primevideo-seo-logo.png", name: "Amazon Prime", href: "go:71", group: "ENTERTAINMENT", isPremium: true, premiumKey: "amazon" },
+    { id: 26, img: "https://i.postimg.cc/tJnC8HmJ/primevideo-seo-logo.png", name: "BoxOffice", href: "go:72", group: "ENTERTAINMENT", isPremium: true, premiumKey: "boxoffice" },
+    
+    // COUNTRIES
+    { id: 29, img: "https://i.postimg.cc/9X6kN4PC/gros_plan_du_drapeau_ondulant_du_maroc_textures_interessantes_181624_14367.jpg", name: "Morocco", href: "go:29", group: "COUNTRIES" },
+    { id: 12, img: "https://i.postimg.cc/HLMSRhFC/images-(16).jpg", name: "Algeria", href: "go:12", group: "COUNTRIES" },
+    { id: 13, img: "https://i.postimg.cc/dQZ0XmV8/images-(15).jpg", name: "Tunisia", href: "go:13", group: "COUNTRIES" },
+    { id: 14, img: "https://i.postimg.cc/RZPcVL5R/images-(18).jpg", name: "Egypt", href: "go:14", group: "COUNTRIES" },
+    { id: 0, img: "https://i.postimg.cc/fyfGLTkm/pngtree-waving-kuwait-flag-background-picture-image-1917207.png", name: "Kuwait", href: "go:0", group: "COUNTRIES" },
+    { id: 20, img: "https://i.postimg.cc/wTQd0Fqy/Iraq.jpg", name: "Iraq", href: "go:20", group: "COUNTRIES" },
+    
+    // ISLAM & KIDS
+    { id: 27, img: "https://i.postimg.cc/tJnC8HmJ/primevideo-seo-logo.png", name: "France", href: "go:27", group: "ISLAM" },
+    { id: 28, img: "https://i.postimg.cc/tJnC8HmJ/primevideo-seo-logo.png", name: "France 3", href: "go:28", group: "ISLAM" },
+    { id: 4, img: "https://i.postimg.cc/N0K33BcT/galil-tv-logo-red.png", name: "Developer Panel", href: "go:04", group: "KIDS" }
+  ];
 
+  // Premium unlock states
+  let premiumState = {
+    netflix: { unlocked: false, expiry: null },
+    spotify: { unlocked: false, expiry: null },
+    amazon: { unlocked: false, expiry: null },
+    boxoffice: { unlocked: false, expiry: null }
+  };
 
-const _0x10e0fd=_0x1a9a;(function(_0x37b72c,_0x258d54){const _0x156477=_0x1a9a,_0x382b9b=_0x37b72c();while(!![]){try{const _0x4c8be7=-parseInt(_0x156477(0x22a))/0x1+-parseInt(_0x156477(0x20e))/0x2*(-parseInt(_0x156477(0x24b))/0x3)+parseInt(_0x156477(0x1d1))/0x4*(parseInt(_0x156477(0x1df))/0x5)+-parseInt(_0x156477(0x237))/0x6*(-parseInt(_0x156477(0x20c))/0x7)+parseInt(_0x156477(0x1d2))/0x8+-parseInt(_0x156477(0x255))/0x9+parseInt(_0x156477(0x1e2))/0xa*(-parseInt(_0x156477(0x25b))/0xb);if(_0x4c8be7===_0x258d54)break;else _0x382b9b['push'](_0x382b9b['shift']());}catch(_0x299bdd){_0x382b9b['push'](_0x382b9b['shift']());}}}(_0x4493,0xefd35));const cardsData=[{'id':0x1,'img':_0x10e0fd(0x233),'name':'beIN\x20SPORTS\x20FHD','href':_0x10e0fd(0x1f6),'group':_0x10e0fd(0x1eb)},{'id':0x2,'img':'https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png','name':_0x10e0fd(0x1cd),'href':_0x10e0fd(0x1b7),'group':'SPORTS'},{'id':0x3,'img':_0x10e0fd(0x233),'name':'beIN\x20SPORTS\x20SD','href':'go:3','group':_0x10e0fd(0x1eb)},{'id':0x5a,'img':'https://i.postimg.cc/QMfVdgvv/gettyimages-1445531216-640x640.jpg','name':_0x10e0fd(0x202),'href':_0x10e0fd(0x1e4),'group':_0x10e0fd(0x1eb)},{'id':0x4,'img':'https://i.postimg.cc/3wYNgK89/20260209-025211.jpg','name':'Alwan\x20Sports','href':'go:4','group':_0x10e0fd(0x1eb)},{'id':0x5,'img':_0x10e0fd(0x231),'name':_0x10e0fd(0x24e),'href':_0x10e0fd(0x25c),'group':_0x10e0fd(0x1eb)},{'id':0x6,'img':_0x10e0fd(0x240),'name':_0x10e0fd(0x23f),'href':'go:6','group':_0x10e0fd(0x1eb)},{'id':0x7,'img':_0x10e0fd(0x216),'name':'Netflix','href':_0x10e0fd(0x1f2),'group':'ENTERTAINMENT','isPremium':!![],'premiumKey':_0x10e0fd(0x1e6)},{'id':0x8,'img':_0x10e0fd(0x1dd),'name':'OSN','href':_0x10e0fd(0x241),'group':_0x10e0fd(0x208)},{'id':0xf,'img':'https://i.postimg.cc/K8DDN1nF/2dbab4496267132df5f82.jpg','name':_0x10e0fd(0x1b8),'href':_0x10e0fd(0x1bb),'group':_0x10e0fd(0x208)},{'id':0x9,'img':'https://i.postimg.cc/wvmsmzBD/aawgl5egj.png','name':_0x10e0fd(0x261),'href':'go:9','group':_0x10e0fd(0x208)},{'id':0xa,'img':'https://i.postimg.cc/Dz3NMsx3/spotify.jpg','name':_0x10e0fd(0x1ec),'href':_0x10e0fd(0x23a),'group':_0x10e0fd(0x208),'isPremium':!![],'premiumKey':_0x10e0fd(0x22b)},{'id':0x19,'img':_0x10e0fd(0x1e9),'name':_0x10e0fd(0x263),'href':_0x10e0fd(0x220),'group':_0x10e0fd(0x208),'isPremium':!![],'premiumKey':_0x10e0fd(0x1c5)},{'id':0x1a,'img':_0x10e0fd(0x1e9),'name':_0x10e0fd(0x235),'href':_0x10e0fd(0x1f4),'group':'ENTERTAINMENT','isPremium':!![],'premiumKey':'boxoffice'},{'id':0x1d,'img':_0x10e0fd(0x1c8),'name':_0x10e0fd(0x24a),'href':_0x10e0fd(0x249),'group':_0x10e0fd(0x254)},{'id':0xc,'img':_0x10e0fd(0x1e5),'name':_0x10e0fd(0x232),'href':_0x10e0fd(0x1da),'group':_0x10e0fd(0x254)},{'id':0xd,'img':_0x10e0fd(0x257),'name':'Tunisia','href':_0x10e0fd(0x1b5),'group':_0x10e0fd(0x254)},{'id':0xe,'img':_0x10e0fd(0x20d),'name':_0x10e0fd(0x1dc),'href':_0x10e0fd(0x221),'group':_0x10e0fd(0x254)},{'id':0x0,'img':_0x10e0fd(0x227),'name':'Kuwait','href':'go:0','group':_0x10e0fd(0x254)},{'id':0x14,'img':_0x10e0fd(0x22f),'name':'Iraq','href':_0x10e0fd(0x247),'group':_0x10e0fd(0x254)},{'id':0x1b,'img':_0x10e0fd(0x1e9),'name':_0x10e0fd(0x25a),'href':'go:27','group':_0x10e0fd(0x1b6)},{'id':0x1c,'img':_0x10e0fd(0x1e9),'name':_0x10e0fd(0x1c4),'href':_0x10e0fd(0x251),'group':_0x10e0fd(0x1b6)},{'id':0x4,'img':_0x10e0fd(0x21b),'name':_0x10e0fd(0x1f3),'href':'go:04','group':_0x10e0fd(0x1be)}];function _0x1a9a(_0x38885c,_0x183832){const _0x44938e=_0x4493();return _0x1a9a=function(_0x1a9aca,_0x55cb26){_0x1a9aca=_0x1a9aca-0x1b4;let _0x1e4d4a=_0x44938e[_0x1a9aca];return _0x1e4d4a;},_0x1a9a(_0x38885c,_0x183832);}let premiumState={'netflix':{'unlocked':![],'expiry':null},'spotify':{'unlocked':![],'expiry':null},'amazon':{'unlocked':![],'expiry':null},'boxoffice':{'unlocked':![],'expiry':null}},currentPremiumKey=null,countdownInterval=null;function formatTimeLeft(_0x3363a3){const _0xf7cd6f=_0x10e0fd;if(_0x3363a3<=0x0)return _0xf7cd6f(0x21d);let _0x12957a=Math['floor'](_0x3363a3/0xea60),_0x2659c7=Math[_0xf7cd6f(0x206)](_0x3363a3%0xea60/0x3e8);return _0x12957a[_0xf7cd6f(0x23c)]()[_0xf7cd6f(0x1ed)](0x2,'0')+':'+_0x2659c7['toString']()[_0xf7cd6f(0x1ed)](0x2,'0');}function savePremiumState(){const _0x52bbd3=_0x10e0fd;let _0x17be67={};for(let _0x29814f in premiumState){_0x17be67[_0x29814f]={'unlocked':premiumState[_0x29814f][_0x52bbd3(0x1d3)],'expiry':premiumState[_0x29814f][_0x52bbd3(0x1f0)]};}localStorage[_0x52bbd3(0x245)](_0x52bbd3(0x1fe),JSON['stringify'](_0x17be67));}function loadPremiumState(){const _0x4067b7=_0x10e0fd;let _0x3e25a7=localStorage[_0x4067b7(0x1e1)](_0x4067b7(0x1fe));if(!_0x3e25a7)return;try{let _0x43ddfd=JSON['parse'](_0x3e25a7);for(let _0x1a9c06 in premiumState){_0x43ddfd[_0x1a9c06]&&(_0x43ddfd[_0x1a9c06][_0x4067b7(0x1d3)]&&_0x43ddfd[_0x1a9c06][_0x4067b7(0x1f0)]&&_0x43ddfd[_0x1a9c06]['expiry']>Date['now']()?premiumState[_0x1a9c06]={'unlocked':!![],'expiry':_0x43ddfd[_0x1a9c06][_0x4067b7(0x1f0)]}:premiumState[_0x1a9c06]={'unlocked':![],'expiry':null});}}catch(_0x29cd5c){}}function unlockPremiumCategory(_0x2f7b6b,_0x15ac19=0xf){const _0x12527e=_0x10e0fd;let _0x13cd28=Date[_0x12527e(0x1e3)]()+_0x15ac19*0x3c*0x3e8;premiumState[_0x2f7b6b]&&(premiumState[_0x2f7b6b]['unlocked']=!![],premiumState[_0x2f7b6b]['expiry']=_0x13cd28),savePremiumState(),updateAllPremiumCardsUI(),startGlobalTimer(),showMsg('✨\x20'+getPremiumName(_0x2f7b6b)+_0x12527e(0x1cc)+_0x15ac19+_0x12527e(0x260));}function getPremiumName(_0x308788){const _0x3a095c=_0x10e0fd,_0x10b8a7={'netflix':_0x3a095c(0x1cb),'spotify':_0x3a095c(0x1ec),'amazon':_0x3a095c(0x263),'boxoffice':_0x3a095c(0x235)};return _0x10b8a7[_0x308788]||_0x308788;}function updateAllPremiumCardsUI(){const _0x3609e4=_0x10e0fd,_0x40f9ee=document[_0x3609e4(0x234)]('.card[data-premium]');_0x40f9ee[_0x3609e4(0x213)](_0x30de96=>{const _0x7d27a1=_0x3609e4;let _0x355833=_0x30de96[_0x7d27a1(0x1d4)]('data-premium-key'),_0x19c56e=premiumState[_0x355833],_0x8c4388=_0x30de96[_0x7d27a1(0x1f1)](_0x7d27a1(0x207));if(_0x19c56e&&_0x19c56e['unlocked']&&_0x19c56e['expiry']&&_0x19c56e[_0x7d27a1(0x1f0)]>Date[_0x7d27a1(0x1e3)]()){let _0x3bca10=_0x19c56e[_0x7d27a1(0x1f0)]-Date['now']();if(_0x8c4388)_0x8c4388[_0x7d27a1(0x1ea)]='<i\x20class=\x22\x22></i>\x20'+formatTimeLeft(_0x3bca10);else{let _0x295b11=document[_0x7d27a1(0x1ca)](_0x7d27a1(0x21e));_0x295b11[_0x7d27a1(0x1d6)]=_0x7d27a1(0x1fd),_0x295b11['innerHTML']=_0x7d27a1(0x1de)+formatTimeLeft(_0x3bca10),_0x30de96['appendChild'](_0x295b11);}_0x30de96[_0x7d27a1(0x1c0)][_0x7d27a1(0x224)]='1';}else{if(_0x19c56e&&_0x19c56e[_0x7d27a1(0x1d3)]&&_0x19c56e[_0x7d27a1(0x1f0)]&&_0x19c56e['expiry']<=Date[_0x7d27a1(0x1e3)]()){_0x19c56e[_0x7d27a1(0x1d3)]=![],_0x19c56e['expiry']=null,savePremiumState();if(_0x8c4388)_0x8c4388['remove']();showMsg('⏰\x20'+getPremiumName(_0x355833)+_0x7d27a1(0x1e7));}else{if(_0x8c4388)_0x8c4388[_0x7d27a1(0x1bd)]();_0x30de96[_0x7d27a1(0x1c0)][_0x7d27a1(0x224)]='1';}}});}function startGlobalTimer(){if(countdownInterval)clearInterval(countdownInterval);countdownInterval=setInterval(()=>{const _0x9496e8=_0x1a9a;let _0x467218=![];for(let _0x5e3026 in premiumState){let _0x3ad03c=premiumState[_0x5e3026];_0x3ad03c[_0x9496e8(0x1d3)]&&_0x3ad03c[_0x9496e8(0x1f0)]&&_0x3ad03c['expiry']<=Date[_0x9496e8(0x1e3)]()&&(_0x3ad03c[_0x9496e8(0x1d3)]=![],_0x3ad03c[_0x9496e8(0x1f0)]=null,_0x467218=!![]);}_0x467218?(savePremiumState(),updateAllPremiumCardsUI()):updateAllPremiumCardsUI();},0x3e8);}const RewardedAds={'isLoaded':![],'currentCategoryKey':null,'init':function(){const _0xd5e22f=_0x10e0fd;this[_0xd5e22f(0x1c9)](),this['preloadAd']();},'preloadAd':function(){const _0x204ba9=_0x10e0fd;this[_0x204ba9(0x229)]=![],window['Android']&&typeof window[_0x204ba9(0x1f7)][_0x204ba9(0x205)]===_0x204ba9(0x209)?(console['log'](_0x204ba9(0x1d8)),window[_0x204ba9(0x1f7)][_0x204ba9(0x205)](),setTimeout(()=>{const _0x307886=_0x204ba9;!this[_0x307886(0x229)]&&(console[_0x307886(0x212)](_0x307886(0x265)),window[_0x307886(0x1f7)][_0x307886(0x205)]());},0x2710)):(console[_0x204ba9(0x212)](_0x204ba9(0x22d)),this['isLoaded']=!![]);},'showModal':function(_0x25942f,_0x45df63){const _0x32ed1e=_0x10e0fd;this[_0x32ed1e(0x262)]=_0x25942f;const _0x5bff87=document[_0x32ed1e(0x1e0)]('premiumModal'),_0x480f35=document[_0x32ed1e(0x1e0)]('modalTitle'),_0x5e6ace=document['getElementById'](_0x32ed1e(0x1ba)),_0x25a789=document[_0x32ed1e(0x1e0)](_0x32ed1e(0x1f5)),_0x2341b7=document[_0x32ed1e(0x1e0)]('adStatus');if(_0x480f35)_0x480f35[_0x32ed1e(0x1ea)]=_0x45df63+_0x32ed1e(0x226);if(_0x5e6ace)_0x5e6ace[_0x32ed1e(0x1c1)]=_0x45df63;_0x25a789&&(_0x25a789[_0x32ed1e(0x23b)]=!this['isLoaded']);if(_0x2341b7)_0x2341b7[_0x32ed1e(0x214)][_0x32ed1e(0x1b9)](_0x32ed1e(0x1bf));_0x5bff87[_0x32ed1e(0x214)][_0x32ed1e(0x1b9)](_0x32ed1e(0x225));},'hideModal':function(){const _0x45efa1=_0x10e0fd,_0x465408=document[_0x45efa1(0x1e0)](_0x45efa1(0x1b4)),_0x1e94cb=document[_0x45efa1(0x1e0)](_0x45efa1(0x23d));_0x465408['classList']['remove'](_0x45efa1(0x225));if(_0x1e94cb)_0x1e94cb[_0x45efa1(0x214)][_0x45efa1(0x1b9)]('hidden');this[_0x45efa1(0x262)]=null;},'setupModalListeners':function(){const _0x4349c7=_0x10e0fd,_0xd30421=document[_0x4349c7(0x1e0)](_0x4349c7(0x24f)),_0x1b41cf=document['getElementById'](_0x4349c7(0x1d9)),_0x3c36fd=document['getElementById'](_0x4349c7(0x1f5));if(_0xd30421)_0xd30421['onclick']=()=>this[_0x4349c7(0x1fa)]();if(_0x1b41cf)_0x1b41cf[_0x4349c7(0x1ff)]=()=>this[_0x4349c7(0x1fa)]();if(_0x3c36fd)_0x3c36fd[_0x4349c7(0x1ff)]=()=>this[_0x4349c7(0x20b)]();},'showAd':function(){const _0x92f428=_0x10e0fd,_0x44205f=document[_0x92f428(0x1e0)](_0x92f428(0x1f5)),_0x14d390=document[_0x92f428(0x1e0)](_0x92f428(0x23d)),_0x499692=this[_0x92f428(0x262)];if(!_0x499692){console[_0x92f428(0x1bc)](_0x92f428(0x238));return;}_0x44205f[_0x92f428(0x23b)]=!![];if(_0x14d390)_0x14d390['classList'][_0x92f428(0x1bd)](_0x92f428(0x1bf));if(window['Android']&&typeof window['Android'][_0x92f428(0x1d0)]===_0x92f428(0x209)){const _0x2e606e=getPremiumName(_0x499692);console[_0x92f428(0x212)](_0x92f428(0x1d5),_0x499692,_0x2e606e),window[_0x92f428(0x1f7)][_0x92f428(0x1d0)](_0x499692,_0x2e606e);}else console[_0x92f428(0x212)]('⚠️\x20Test\x20mode:\x20simulating\x20ad'),setTimeout(()=>{const _0x296577=_0x92f428;this[_0x296577(0x264)]();},0x7d0);},'onAdLoaded':function(){const _0x558c6b=_0x10e0fd;console[_0x558c6b(0x212)]('✅\x20Rewarded\x20ad\x20loaded\x20successfully'),this[_0x558c6b(0x229)]=!![];const _0x750b56=document[_0x558c6b(0x1e0)](_0x558c6b(0x1f5)),_0x5161f7=document['getElementById'](_0x558c6b(0x23d));if(_0x750b56)_0x750b56[_0x558c6b(0x23b)]=![];if(_0x5161f7)_0x5161f7['classList'][_0x558c6b(0x1b9)]('hidden');},'onAdFailed':function(){const _0x471bf5=_0x10e0fd;console[_0x471bf5(0x212)]('❌\x20Rewarded\x20ad\x20failed\x20to\x20load'),this[_0x471bf5(0x229)]=![];const _0x69f060=document['getElementById'](_0x471bf5(0x1f5)),_0x49a2a4=document[_0x471bf5(0x1e0)](_0x471bf5(0x23d));if(_0x69f060)_0x69f060[_0x471bf5(0x23b)]=![];if(_0x49a2a4)_0x49a2a4[_0x471bf5(0x214)][_0x471bf5(0x1b9)](_0x471bf5(0x1bf));showMsg('⚠️\x20Ad\x20not\x20available,\x20please\x20try\x20again'),setTimeout(()=>this[_0x471bf5(0x1db)](),0x1388);},'onAdRewarded':function(){const _0xc3a8ab=_0x10e0fd;console['log']('🎉\x20Reward\x20earned!\x20Unlocking\x20category:',this[_0xc3a8ab(0x262)]);const _0x2cd5d1=this[_0xc3a8ab(0x262)];_0x2cd5d1&&unlockPremiumCategory(_0x2cd5d1,0xf),this[_0xc3a8ab(0x1fa)](),setTimeout(()=>{const _0x26c759=_0xc3a8ab,_0xc04c04=cardsData['find'](_0x35f413=>_0x35f413[_0x26c759(0x243)]===_0x2cd5d1);_0xc04c04&&_0xc04c04[_0x26c759(0x246)]&&(window[_0x26c759(0x228)][_0x26c759(0x246)]=_0xc04c04['href']);},0x320),setTimeout(()=>this['preloadAd'](),0xbb8);},'onAdNotAvailable':function(){const _0x54e541=_0x10e0fd;console[_0x54e541(0x212)](_0x54e541(0x244));const _0x2f8cd0=document['getElementById'](_0x54e541(0x1f5)),_0x3f4522=document[_0x54e541(0x1e0)]('adStatus');if(_0x2f8cd0)_0x2f8cd0['disabled']=![];if(_0x3f4522)_0x3f4522[_0x54e541(0x214)][_0x54e541(0x1b9)](_0x54e541(0x1bf));showMsg(_0x54e541(0x21c));}};window[_0x10e0fd(0x1ef)]=RewardedAds;const slides=document['querySelectorAll'](_0x10e0fd(0x24d));let slideIndex=0x0;function showSlide(_0x21a8ed){const _0x25acc0=_0x10e0fd;slides[slideIndex]?.[_0x25acc0(0x214)][_0x25acc0(0x1bd)](_0x25acc0(0x225)),slideIndex=_0x21a8ed,slides[slideIndex]?.[_0x25acc0(0x214)][_0x25acc0(0x1b9)](_0x25acc0(0x225));}setInterval(()=>{const _0x4488c4=_0x10e0fd;showSlide((slideIndex+0x1)%slides[_0x4488c4(0x223)]);},0x1388);function _0x4493(){const _0x5d2c68=['BoxOffice','toast','3084oCisdn','No\x20category\x20key\x20set','showMsg','go:70','disabled','toString','adStatus','true','Arabic\x20Sports','https://i.postimg.cc/0j3Kg4Xc/images.jpg','go:8','goBack','premiumKey','⚠️\x20Ad\x20not\x20available\x20at\x20this\x20time','setItem','href','go:20','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20','go:29','Morocco','885417IJfPol','card-content','.slide','Thmanyah\x20Sports','modalCloseBtn','.toast','go:28','click','\x20min)','COUNTRIES','16853166oGwGeF','<i\x20class=\x22fas\x20fa-play-circle\x22></i>\x20Watch\x20Now','https://i.postimg.cc/dQZ0XmV8/images-(15).jpg','group','history','France','9122212eGRuDm','go:5','vip-badge','isPremium','lazy','\x20minutes!\x20✨','MBC\x20Group','currentCategoryKey','Amazon\x20Prime','onAdRewarded','⚠️\x20Ad\x20loading\x20timeout,\x20retrying...','premiumModal','go:13','ISLAM','go:2','Akwam','add','premiumName','go:15','error','remove','KIDS','hidden','style','innerText','back','fa-flag','France\x203','amazon','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22group-badge\x20','init','https://i.postimg.cc/9X6kN4PC/gros_plan_du_drapeau_ondulant_du_maroc_textures_interessantes_181624_14367.jpg','setupModalListeners','createElement','Netflix','\x20unlocked\x20for\x20','beIN\x20SPORTS\x20HD','addEventListener','appendChild','showRewardedAd','220PyIgpy','15578856daYPuh','unlocked','getAttribute','📡\x20Showing\x20rewarded\x20ad\x20for:','className','alt','📡\x20Loading\x20rewarded\x20ad\x20from\x20Android','closeModalBtn','go:12','preloadAd','Egypt','https://i.postimg.cc/yNhW80GP/osn-logo-9.jpg','<i\x20class=\x22\x22></i>\x20','29865yExnbd','getElementById','getItem','10aEUDBn','now','go:90','https://i.postimg.cc/HLMSRhFC/images-(16).jpg','netflix','\x20time\x20expired,\x20watch\x20ad\x20again','data-premium','https://i.postimg.cc/tJnC8HmJ/primevideo-seo-logo.png','innerHTML','SPORTS','Spotify','padStart','target','RewardedAds','expiry','querySelector','go:69','Developer\x20Panel','go:72','watchAdBtn','go:1','Android','name','🎬\x20Opening\x20','hideModal','img','fa-mosque','premium-timer','galil_vip_rewards','onclick','\x20-\x20Coming\x20Soon','...\x20(','beIN\x20World\x20Cup','fa-tag','fa-futbol','loadRewardedAd','floor','.premium-timer','ENTERTAINMENT','function','🏠\x20Home','showAd','25452KVkKKx','https://i.postimg.cc/RZPcVL5R/images-(18).jpg','6PBETBs','showModal','\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<i\x20class=\x22fas\x20','push','log','forEach','classList','body','https://i.postimg.cc/Y9tCPf06/20260303-222958.png','setAttribute','data-premium-key','card-media','<i\x20class=\x22fas\x20fa-info-circle\x22></i>\x20','https://i.postimg.cc/N0K33BcT/galil-tv-logo-red.png','⚠️\x20No\x20ad\x20available,\x20please\x20try\x20again\x20later','00:00','div','\x20👑','go:71','go:14','<i\x20class=\x22fas\x20fa-crown\x22></i>\x20Premium','length','opacity','active','\x20VIP','https://i.postimg.cc/fyfGLTkm/pngtree-waving-kuwait-flag-background-picture-image-1917207.png','location','isLoaded','1346002GKXPzJ','spotify','group-header','⚠️\x20Android\x20bridge\x20not\x20available,\x20using\x20test\x20mode','DOMContentLoaded','https://i.postimg.cc/wTQd0Fqy/Iraq.jpg','\x22></i>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','https://i.postimg.cc/kMWp9Ncn/20260209002112.jpg','Algeria','https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png','querySelectorAll'];_0x4493=function(){return _0x5d2c68;};return _0x4493();}function renderCards(){const _0x1d4328=_0x10e0fd,_0x39ba4f=document[_0x1d4328(0x1e0)]('cardsGrid');if(!_0x39ba4f)return;_0x39ba4f[_0x1d4328(0x1ea)]='';const _0x296c04=[_0x1d4328(0x1eb),_0x1d4328(0x208),'COUNTRIES',_0x1d4328(0x1b6),_0x1d4328(0x1be)],_0x51aaad={'SPORTS':_0x1d4328(0x204),'ENTERTAINMENT':'fa-film','COUNTRIES':_0x1d4328(0x1c3),'ISLAM':_0x1d4328(0x1fc),'KIDS':'fa-child'},_0x5d3139={};cardsData[_0x1d4328(0x213)](_0x35828=>{const _0x24f7ab=_0x1d4328;let _0x3c688e=_0x35828[_0x24f7ab(0x258)];if(!_0x5d3139[_0x3c688e])_0x5d3139[_0x3c688e]=[];_0x5d3139[_0x3c688e][_0x24f7ab(0x211)](_0x35828);}),_0x296c04[_0x1d4328(0x213)](_0x6e8bac=>{const _0x6464b7=_0x1d4328,_0x4f1185=_0x5d3139[_0x6e8bac];if(_0x4f1185&&_0x4f1185[_0x6464b7(0x223)]>0x0){const _0x4c7e13=document[_0x6464b7(0x1ca)](_0x6464b7(0x21e));_0x4c7e13[_0x6464b7(0x1d6)]=_0x6464b7(0x22c);let _0x122690=_0x6e8bac===_0x6464b7(0x208)?_0x6464b7(0x25d):'';_0x4c7e13['innerHTML']=_0x6464b7(0x1c6)+_0x122690+_0x6464b7(0x210)+(_0x51aaad[_0x6e8bac]||_0x6464b7(0x203))+_0x6464b7(0x230)+_0x6e8bac+_0x6464b7(0x248),_0x39ba4f[_0x6464b7(0x1cf)](_0x4c7e13),_0x4f1185['forEach'](_0x51c409=>{const _0x4b3f4d=_0x6464b7,_0x11f78d=document[_0x4b3f4d(0x1ca)](_0x4b3f4d(0x21e));_0x11f78d[_0x4b3f4d(0x1d6)]='card';_0x51c409[_0x4b3f4d(0x25e)]&&(_0x11f78d['setAttribute'](_0x4b3f4d(0x1e8),_0x4b3f4d(0x23e)),_0x11f78d[_0x4b3f4d(0x217)](_0x4b3f4d(0x218),_0x51c409['premiumKey']));_0x11f78d[_0x4b3f4d(0x1ff)]=()=>{const _0x2aacbf=_0x4b3f4d;if(_0x51c409[_0x2aacbf(0x25e)]){let _0x706bfc=_0x51c409[_0x2aacbf(0x243)],_0x3dd7ea=premiumState[_0x706bfc];if(_0x3dd7ea&&_0x3dd7ea['unlocked']&&_0x3dd7ea[_0x2aacbf(0x1f0)]&&_0x3dd7ea['expiry']>Date[_0x2aacbf(0x1e3)]()){let _0x1ad1b7=Math['floor']((_0x3dd7ea[_0x2aacbf(0x1f0)]-Date[_0x2aacbf(0x1e3)]())/0xea60);showMsg(_0x2aacbf(0x1f9)+_0x51c409[_0x2aacbf(0x1f8)]+_0x2aacbf(0x201)+_0x1ad1b7+_0x2aacbf(0x253)),window['location'][_0x2aacbf(0x246)]=_0x51c409[_0x2aacbf(0x246)];}else RewardedAds[_0x2aacbf(0x20f)](_0x706bfc,_0x51c409['name']);}else _0x51c409['href']?window['location'][_0x2aacbf(0x246)]=_0x51c409['href']:showMsg('🔜\x20'+_0x51c409[_0x2aacbf(0x1f8)]+_0x2aacbf(0x200));};const _0x4f0823=document[_0x4b3f4d(0x1ca)](_0x4b3f4d(0x21e));_0x4f0823['className']=_0x4b3f4d(0x219);const _0x129fce=document[_0x4b3f4d(0x1ca)]('img');_0x129fce['src']=_0x51c409[_0x4b3f4d(0x1fb)],_0x129fce[_0x4b3f4d(0x1d7)]=_0x51c409[_0x4b3f4d(0x1f8)],_0x129fce['loading']=_0x4b3f4d(0x25f),_0x4f0823[_0x4b3f4d(0x1cf)](_0x129fce);const _0x2063c1=document[_0x4b3f4d(0x1ca)]('div');_0x2063c1[_0x4b3f4d(0x1d6)]=_0x4b3f4d(0x24c);const _0x3ef364=document[_0x4b3f4d(0x1ca)](_0x4b3f4d(0x21e));_0x3ef364['className']='card-title',_0x3ef364[_0x4b3f4d(0x1c1)]=_0x51c409[_0x4b3f4d(0x25e)]?_0x51c409[_0x4b3f4d(0x1f8)]+_0x4b3f4d(0x21f):_0x51c409[_0x4b3f4d(0x1f8)];const _0x4f5780=document[_0x4b3f4d(0x1ca)](_0x4b3f4d(0x21e));_0x4f5780[_0x4b3f4d(0x1d6)]='card-meta',_0x4f5780[_0x4b3f4d(0x1ea)]=_0x51c409[_0x4b3f4d(0x25e)]?_0x4b3f4d(0x222):_0x4b3f4d(0x256),_0x2063c1[_0x4b3f4d(0x1cf)](_0x3ef364),_0x2063c1[_0x4b3f4d(0x1cf)](_0x4f5780),_0x11f78d['appendChild'](_0x4f0823),_0x11f78d['appendChild'](_0x2063c1),_0x39ba4f['appendChild'](_0x11f78d);});}}),updateAllPremiumCardsUI();}window[_0x10e0fd(0x239)]=function(_0x485e8e){const _0xd32079=_0x10e0fd,_0x254a41=document[_0xd32079(0x1f1)](_0xd32079(0x250));if(_0x254a41)_0x254a41['remove']();const _0x8cdea9=document[_0xd32079(0x1ca)](_0xd32079(0x21e));_0x8cdea9[_0xd32079(0x1d6)]=_0xd32079(0x236),_0x8cdea9[_0xd32079(0x1ea)]=_0xd32079(0x21a)+_0x485e8e,document[_0xd32079(0x215)][_0xd32079(0x1cf)](_0x8cdea9),setTimeout(()=>{const _0x3d30fc=_0xd32079;_0x8cdea9[_0x3d30fc(0x1c0)]['opacity']='0',setTimeout(()=>_0x8cdea9['remove'](),0x12c);},0x9c4);},window[_0x10e0fd(0x242)]=function(){const _0x58c1b9=_0x10e0fd;if(window[_0x58c1b9(0x259)][_0x58c1b9(0x223)]>0x1)window['history'][_0x58c1b9(0x1c2)]();else showMsg(_0x58c1b9(0x20a));},document['addEventListener'](_0x10e0fd(0x22e),()=>{const _0x8e5257=_0x10e0fd;loadPremiumState(),renderCards(),startGlobalTimer(),RewardedAds[_0x8e5257(0x1c7)]();const _0x4b3ed6=document['getElementById'](_0x8e5257(0x1b4));_0x4b3ed6[_0x8e5257(0x1ce)](_0x8e5257(0x252),_0x2a591b=>{const _0x8b7167=_0x8e5257;if(_0x2a591b[_0x8b7167(0x1ee)]===_0x4b3ed6)RewardedAds[_0x8b7167(0x1fa)]();});});
+  let currentPremiumKey = null;
+  let countdownInterval = null;
 
+  function formatTimeLeft(ms) {
+    if (ms <= 0) return "00:00";
+    let mins = Math.floor(ms / 60000);
+    let secs = Math.floor((ms % 60000) / 1000);
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }
 
+  function savePremiumState() {
+    let toStore = {};
+    for (let k in premiumState) {
+      toStore[k] = { unlocked: premiumState[k].unlocked, expiry: premiumState[k].expiry };
+    }
+    localStorage.setItem("galil_vip_rewards", JSON.stringify(toStore));
+  }
+
+  function loadPremiumState() {
+    let saved = localStorage.getItem("galil_vip_rewards");
+    if (!saved) return;
+    try {
+      let parsed = JSON.parse(saved);
+      for (let k in premiumState) {
+        if (parsed[k]) {
+          if (parsed[k].unlocked && parsed[k].expiry && parsed[k].expiry > Date.now()) {
+            premiumState[k] = { unlocked: true, expiry: parsed[k].expiry };
+          } else {
+            premiumState[k] = { unlocked: false, expiry: null };
+          }
+        }
+      }
+    } catch(e) {}
+  }
+
+  function unlockPremiumCategory(key, durationMinutes = 15) {
+    let expiryTime = Date.now() + (durationMinutes * 60 * 1000);
+    if (premiumState[key]) {
+      premiumState[key].unlocked = true;
+      premiumState[key].expiry = expiryTime;
+    }
+    savePremiumState();
+    updateAllPremiumCardsUI();
+    startGlobalTimer();
+    showMsg(`✨ ${getPremiumName(key)} unlocked for ${durationMinutes} minutes! ✨`);
+  }
+
+  function getPremiumName(key) {
+    const names = { netflix: "Netflix", spotify: "Spotify", amazon: "Amazon Prime", boxoffice: "BoxOffice" };
+    return names[key] || key;
+  }
+  
+  // ✅ دالة التحقق الآمن من صلاحية الـ Premium (مفقودة في كودك)
+  function isPremiumUnlocked(key) {
+    // 1. التحقق من الذاكرة المباشرة
+    let state = premiumState[key];
+    if (state && state.unlocked && state.expiry && state.expiry > Date.now()) {
+      return true;
+    }
+    
+    // 2. التحقق الاحتياطي من localStorage (ضد التلاعب أو بعد التحديث)
+    try {
+      let saved = localStorage.getItem("galil_vip_rewards");
+      if (saved) {
+        let parsed = JSON.parse(saved);
+        if (parsed[key] && parsed[key].unlocked && parsed[key].expiry > Date.now()) {
+          // مزامنة الذاكرة المحلية
+          premiumState[key] = parsed[key];
+          return true;
+        }
+      }
+    } catch(e) {}
+    
+    return false;
+  }
+  
+
+  function updateAllPremiumCardsUI() {
+    const allCards = document.querySelectorAll('.card[data-premium]');
+    allCards.forEach(card => {
+      let key = card.getAttribute('data-premium-key');
+      let state = premiumState[key];
+      let existingTimer = card.querySelector('.premium-timer');
+      
+      if (state && state.unlocked && state.expiry && state.expiry > Date.now()) {
+        let remaining = state.expiry - Date.now();
+        if (existingTimer) {
+          existingTimer.innerHTML = `<i class=""></i> ${formatTimeLeft(remaining)}`;
+        } else {
+          let timerDiv = document.createElement('div');
+          timerDiv.className = 'premium-timer';
+          timerDiv.innerHTML = `<i class=""></i> ${formatTimeLeft(remaining)}`;
+          card.appendChild(timerDiv);
+        }
+        card.style.opacity = "1";
+      } 
+      else if (state && state.unlocked && state.expiry && state.expiry <= Date.now()) {
+        state.unlocked = false;
+        state.expiry = null;
+        savePremiumState();
+        if (existingTimer) existingTimer.remove();
+        showMsg(`⏰ ${getPremiumName(key)} time expired, watch ad again`);
+      }
+      else {
+        if (existingTimer) existingTimer.remove();
+        card.style.opacity = "1";
+      }
+    });
+  }
+
+  function startGlobalTimer() {
+    if (countdownInterval) clearInterval(countdownInterval);
+    countdownInterval = setInterval(() => {
+      let anyChange = false;
+      for (let k in premiumState) {
+        let s = premiumState[k];
+        if (s.unlocked && s.expiry && s.expiry <= Date.now()) {
+          s.unlocked = false;
+          s.expiry = null;
+          anyChange = true;
+        }
+      }
+      if (anyChange) {
+        savePremiumState();
+        updateAllPremiumCardsUI();
+      } else {
+        updateAllPremiumCardsUI();
+      }
+    }, 1000);
+  }
+  
+  
+  // 🛡️ === START PREMIUM SESSION GUARD ===
+function startPremiumSessionGuard() {
+    setInterval(() => {
+        let anyExpired = false;
+        for (let key in premiumState) {
+            let state = premiumState[key];
+            if (state.unlocked && state.expiry && state.expiry <= Date.now()) {
+                state.unlocked = false;
+                state.expiry = null;
+                savePremiumState();
+                if (isCurrentlyWatching(key)) {
+                    forceLogoutFromPremium(key);
+                }
+                anyExpired = true;
+                showMsg(`⏰ Session ended for ${getPremiumName(key)}`);
+            }
+        }
+        if (anyExpired) updateAllPremiumCardsUI();
+    }, 30000);
+}
+
+function isCurrentlyWatching(premiumKey) {
+    const currentHref = window.location.href;
+    const targetCard = cardsData.find(c => c.premiumKey === premiumKey);
+    if (targetCard && currentHref.includes(targetCard.href.split(':')[1])) {
+        return true;
+    }
+    try {
+        let activeSession = localStorage.getItem("galil_active_session");
+        if (activeSession === premiumKey) return true;
+    } catch(e) {}
+    return false;
+}
+
+function forceLogoutFromPremium(key) {
+    localStorage.removeItem("galil_active_session");
+    if (window.location.href !== window.location.origin + window.location.pathname) {
+        window.location.href = window.location.href;
+    }
+    if (window.Android && typeof window.Android.onPremiumExpired === 'function') {
+        window.Android.onPremiumExpired(key);
+    }
+    console.log(`🔒 Force closed session for: ${key}`);
+}
+// 🛡️ === END PREMIUM SESSION GUARD ===
+
+  // ============================================
+  // 🎬 Rewarded Ads Manager (مثل الكود القديم)
+  // ============================================
+  const RewardedAds = {
+    isLoaded: false,
+    currentCategoryKey: null,
+    
+    init: function() {
+      this.setupModalListeners();
+      this.preloadAd();
+    },
+    
+    preloadAd: function() {
+      this.isLoaded = false;
+      
+      // ✅ استخدام نفس واجهة Android من الكود القديم
+      if (window.Android && typeof window.Android.loadRewardedAd === 'function') {
+        console.log('📡 Loading rewarded ad from Android');
+        window.Android.loadRewardedAd();
+        
+        // مهلة: إذا لم يتم التحميل خلال 10 ثواني، حاول مجدداً
+        setTimeout(() => {
+          if (!this.isLoaded) {
+            console.log('⚠️ Ad loading timeout, retrying...');
+            window.Android.loadRewardedAd();
+          }
+        }, 10000);
+      } else {
+        console.log('⚠️ Android bridge not available, using test mode');
+        this.isLoaded = true;
+      }
+    },
+    
+    showModal: function(categoryKey, categoryName) {
+      this.currentCategoryKey = categoryKey;
+      const modal = document.getElementById('premiumModal');
+      const titleEl = document.getElementById('modalTitle');
+      const premiumNameSpan = document.getElementById('premiumName');
+      const watchBtn = document.getElementById('watchAdBtn');
+      const adStatus = document.getElementById('adStatus');
+      
+      if (titleEl) titleEl.innerHTML = `${categoryName} VIP`;
+      if (premiumNameSpan) premiumNameSpan.innerText = categoryName;
+      
+      // تحديث حالة الزر
+      if (watchBtn) {
+        watchBtn.disabled = !this.isLoaded;
+      }
+      if (adStatus) adStatus.classList.add('hidden');
+      
+      modal.classList.add('active');
+    },
+    
+    hideModal: function() {
+      const modal = document.getElementById('premiumModal');
+      const adStatus = document.getElementById('adStatus');
+      modal.classList.remove('active');
+      if (adStatus) adStatus.classList.add('hidden');
+      this.currentCategoryKey = null;
+    },
+    
+    setupModalListeners: function() {
+      const closeBtn = document.getElementById('modalCloseBtn');
+      const laterBtn = document.getElementById('closeModalBtn');
+      const watchBtn = document.getElementById('watchAdBtn');
+      
+      if (closeBtn) closeBtn.onclick = () => this.hideModal();
+      if (laterBtn) laterBtn.onclick = () => this.hideModal();
+      if (watchBtn) watchBtn.onclick = () => this.showAd();
+    },
+    
+    showAd: function() {
+      const btn = document.getElementById('watchAdBtn');
+      const adStatus = document.getElementById('adStatus');
+      const key = this.currentCategoryKey;
+      
+      if (!key) {
+        console.error('No category key set');
+        return;
+      }
+      
+      btn.disabled = true;
+      if (adStatus) adStatus.classList.remove('hidden');
+      
+      if (window.Android && typeof window.Android.showRewardedAd === 'function') {
+        const categoryName = getPremiumName(key);
+        console.log('📡 Showing rewarded ad for:', key, categoryName);
+        // ✅ تمرير المعرف والاسم إلى Android
+        window.Android.showRewardedAd(key, categoryName);
+      } else {
+        // وضع تجريبي (للاختبار)
+        console.log('⚠️ Test mode: simulating ad');
+        setTimeout(() => {
+          this.onAdRewarded();
+        }, 2000);
+      }
+    },
+    
+    // ✅ هذه الدوال سيتم استدعاؤها من Android عبر JavascriptInterface
+    
+    onAdLoaded: function() {
+      console.log('✅ Rewarded ad loaded successfully');
+      this.isLoaded = true;
+      const btn = document.getElementById('watchAdBtn');
+      const adStatus = document.getElementById('adStatus');
+      if (btn) btn.disabled = false;
+      if (adStatus) adStatus.classList.add('hidden');
+    },
+    
+    onAdFailed: function() {
+      console.log('❌ Rewarded ad failed to load');
+      this.isLoaded = false;
+      const btn = document.getElementById('watchAdBtn');
+      const adStatus = document.getElementById('adStatus');
+      if (btn) btn.disabled = false;
+      if (adStatus) adStatus.classList.add('hidden');
+      showMsg('⚠️ Ad not available, please try again');
+      
+      // محاولة تحميل إعلان جديد
+      setTimeout(() => this.preloadAd(), 5000);
+    },
+    
+    onAdRewarded: function() {
+      console.log('🎉 Reward earned! Unlocking category:', this.currentCategoryKey);
+      
+      const key = this.currentCategoryKey;
+      if (key) {
+        unlockPremiumCategory(key, 15);
+      }
+      
+      this.hideModal();
+      
+      // فتح الرابط تلقائياً بعد ثانية
+      setTimeout(() => {
+        const targetCard = cardsData.find(c => c.premiumKey === key);
+        if (targetCard && targetCard.href) {
+          window.location.href = targetCard.href;
+        }
+      }, 800);
+      
+      // تجهيز إعلان جديد
+      setTimeout(() => this.preloadAd(), 3000);
+    },
+    
+    onAdNotAvailable: function() {
+      console.log('⚠️ Ad not available at this time');
+      const btn = document.getElementById('watchAdBtn');
+      const adStatus = document.getElementById('adStatus');
+      if (btn) btn.disabled = false;
+      if (adStatus) adStatus.classList.add('hidden');
+      showMsg('⚠️ No ad available, please try again later');
+    }
+  };
+
+  // ربط الدوال للوصول من Android
+  window.RewardedAds = RewardedAds;
+
+  // ============================================
+  // 🎠 SLIDER
+  // ============================================
+  const slides = document.querySelectorAll(".slide");
+  let slideIndex = 0;
+  function showSlide(i) {
+    slides[slideIndex]?.classList.remove("active");
+    slideIndex = i;
+    slides[slideIndex]?.classList.add("active");
+  }
+  setInterval(() => { showSlide((slideIndex + 1) % slides.length); }, 5000);
+
+  // ============================================
+  // 🃏 RENDER CARDS
+  // ============================================
+  function renderCards() {
+    const grid = document.getElementById("cardsGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    
+    const groupOrder = ["SPORTS", "ENTERTAINMENT", "COUNTRIES", "ISLAM", "KIDS"];
+    const groupIcons = {
+      "SPORTS": "fa-futbol",
+      "ENTERTAINMENT": "fa-film",
+      "COUNTRIES": "fa-flag",
+      "ISLAM": "fa-mosque",
+      "KIDS": "fa-child"
+    };
+    
+    const groupedCards = {};
+    cardsData.forEach(card => {
+      let group = card.group;
+      if (!groupedCards[group]) groupedCards[group] = [];
+      groupedCards[group].push(card);
+    });
+    
+    groupOrder.forEach(groupName => {
+      const cardsInGroup = groupedCards[groupName];
+      if (cardsInGroup && cardsInGroup.length > 0) {
+        const groupHeader = document.createElement("div");
+        groupHeader.className = "group-header";
+        let vipClass = groupName === "ENTERTAINMENT" ? "vip-badge" : "";
+        groupHeader.innerHTML = `
+          <div class="group-badge ${vipClass}">
+            <i class="fas ${groupIcons[groupName] || 'fa-tag'}"></i>
+            ${groupName}
+          </div>
+        `;
+        grid.appendChild(groupHeader);
+        
+        cardsInGroup.forEach(card => {
+          const cardDiv = document.createElement("div");
+          cardDiv.className = "card";
+          
+          if (card.isPremium) {
+            cardDiv.setAttribute('data-premium', 'true');
+            cardDiv.setAttribute('data-premium-key', card.premiumKey);
+          }
+          
+          cardDiv.onclick = () => { 
+  if (card.isPremium) {
+    let key = card.premiumKey;
+    
+    // ✅ التحقق المزدوج
+    if (isPremiumUnlocked(key)) {
+      
+      // 🎯 تسجيل الجلسة النشطة قبل الفتح (سطر جديد)
+      localStorage.setItem("galil_active_session", key);
+      
+      let remaining = Math.floor((premiumState[key].expiry - Date.now()) / 60000);
+      showMsg(`🎬 Opening ${card.name}... (${remaining} min left)`);
+      window.location.href = card.href;
+      
+    } else {
+      showMsg(`⏰ Access expired for ${card.name}`);
+      RewardedAds.showModal(key, card.name);
+    }
+  } else {
+    // كود الفئات العادية (اتركه كما هو)
+    if (card.href) {
+      window.location.href = card.href;
+    } else {
+      showMsg(`🔜 ${card.name} - Coming Soon`);
+    }
+  }
+};
+          
+          const mediaDiv = document.createElement("div");
+          mediaDiv.className = "card-media";
+          const img = document.createElement("img");
+          img.src = card.img;
+          img.alt = card.name;
+          img.loading = "lazy";
+          mediaDiv.appendChild(img);
+          
+          const contentDiv = document.createElement("div");
+          contentDiv.className = "card-content";
+          const title = document.createElement("div");
+          title.className = "card-title";
+          title.innerText = card.isPremium ? card.name + ' 👑' : card.name;
+          const meta = document.createElement("div");
+          meta.className = "card-meta";
+          meta.innerHTML = card.isPremium ? '<i class="fas fa-crown"></i> Premium' : '<i class="fas fa-play-circle"></i> Watch Now';
+          contentDiv.appendChild(title);
+          contentDiv.appendChild(meta);
+          
+          cardDiv.appendChild(mediaDiv);
+          cardDiv.appendChild(contentDiv);
+          grid.appendChild(cardDiv);
+        });
+      }
+    });
+    
+    updateAllPremiumCardsUI();
+  }
+
+  // ============================================
+  // 🍞 TOAST MESSAGE
+  // ============================================
+  window.showMsg = function(txt) {
+    const existing = document.querySelector(".toast");
+    if (existing) existing.remove();
+    const el = document.createElement("div");
+    el.className = "toast";
+    el.innerHTML = `<i class="fas fa-info-circle"></i> ${txt}`;
+    document.body.appendChild(el);
+    setTimeout(() => {
+      el.style.opacity = "0";
+      setTimeout(() => el.remove(), 300);
+    }, 2500);
+  };
+
+  // ============================================
+  // 📱 GO BACK
+  // ============================================
+  window.goBack = function() { 
+    if (window.history.length > 1) window.history.back(); 
+    else showMsg("🏠 Home"); 
+  };
+
+  // ============================================
+  // 🚀 INITIALIZATION
+  // ============================================
+  document.addEventListener("DOMContentLoaded", () => {
+    loadPremiumState();
+    renderCards();
+    startGlobalTimer();
+    startPremiumSessionGuard();
+    
+    RewardedAds.init();
+    
+    // إغلاق المودال عند النقر على الخلفية
+    const modal = document.getElementById('premiumModal');
+    modal.addEventListener('click', (e) => { 
+      if (e.target === modal) RewardedAds.hideModal(); 
+    });
+  });
 </script>
 
 </body>
-  </html>
-
-  
+</html>
