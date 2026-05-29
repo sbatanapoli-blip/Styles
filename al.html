@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Channels</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+  /* ===== PRO CARDS STYLE ===== */
+  :root {
+    --bg: #05060a;
+    --surface: #0c0e14;
+    --surface-hover: #141720;
+    --accent: #f59e0b;
+    --accent-glow: rgba(245, 158, 11, 0.25);
+    --text: #f9fafb;
+    --border: #1f2937;
+    --radius: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
+    padding: 10px;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle at 20% 0%, rgba(245,158,11,0.08) 0%, transparent 35%);
+    opacity: 0.6;
+  }
+
+  /* ===== CARDS GRID ===== */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 18px;
+    padding: 4px 0;
+  }
+
+  @media (min-width: 768px) {
+    .grid {
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 24px;
+    }
+  }
+
+  /* ===== CARD DESIGN ===== */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s;
+    text-decoration: none;
+    display: block;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    border-color: var(--accent);
+  }
+
+  .card:active {
+    transform: translateY(-1px) scale(0.995);
+  }
+
+  /* ===== CARD MEDIA ===== */
+  .card-media {
+    position: relative;
+    aspect-ratio: 16/9.5;
+    background: #000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    padding: 6px;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .card:hover .card-media img {
+    transform: scale(1.07);
+  }
+
+  /* ===== CARD CONTENT ===== */
+  .card-content {
+    padding: 8px 14px 16px;
+    position: relative;
+    z-index: 2;
+    margin-top: -12px;
+    transform: translateY(8px);
+  }
+
+  .card-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 0.2px;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.65rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  /* ===== تأثير خلفي للبطاقة ===== */
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 35%, rgba(5,6,10,0.8) 85%, var(--surface) 100%);
+    pointer-events: none;
+    z-index: 1;
+    border-radius: var(--radius);
+  }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    font-weight: 700;
+    z-index: 10000;
+    opacity: 0;
+    animation: toastIn 0.3s forwards;
+    max-width: 85%;
+    text-align: center;
+  }
+
+  @keyframes toastIn {
+    to {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid" id="channels"></div>
+
+<script>
+
+  const _0x30aba7=_0x2c8c;(function(_0x409ee5,_0x1c77ca){const _0x819980=_0x2c8c,_0x1a2ac1=_0x409ee5();while(!![]){try{const _0x1a6fba=parseInt(_0x819980(0x13c))/0x1+-parseInt(_0x819980(0x158))/0x2*(-parseInt(_0x819980(0x160))/0x3)+-parseInt(_0x819980(0x148))/0x4+parseInt(_0x819980(0x143))/0x5+-parseInt(_0x819980(0x15d))/0x6*(parseInt(_0x819980(0x13d))/0x7)+-parseInt(_0x819980(0x165))/0x8+parseInt(_0x819980(0x149))/0x9*(-parseInt(_0x819980(0x147))/0xa);if(_0x1a6fba===_0x1c77ca)break;else _0x1a2ac1['push'](_0x1a2ac1['shift']());}catch(_0x10448a){_0x1a2ac1['push'](_0x1a2ac1['shift']());}}}(_0x2664,0x82d2c));const API=_0x30aba7(0x14b),API_KEY=_0x30aba7(0x157);function encryptURL(_0x3b5892){return btoa(encodeURIComponent(_0x3b5892));}function _0x2c8c(_0x5529ea,_0x5162ac){const _0x26645e=_0x2664();return _0x2c8c=function(_0x2c8caf,_0x4bfe5b){_0x2c8caf=_0x2c8caf-0x138;let _0xe15e36=_0x26645e[_0x2c8caf];return _0xe15e36;},_0x2c8c(_0x5529ea,_0x5162ac);}function decryptURL(_0x548ab8){return decodeURIComponent(atob(_0x548ab8));}function buildIntent(_0xeb80a1){const _0x4179e2=_0x30aba7,_0x1c773b=decryptURL(_0xeb80a1);return _0x4179e2(0x151)+encodeURIComponent(_0x1c773b)+'&title='+encodeURIComponent(_0x4179e2(0x140))+_0x4179e2(0x159);}function showMsg(_0x321db5){const _0x3171b7=_0x30aba7,_0x458ce5=document[_0x3171b7(0x14d)](_0x3171b7(0x15b));if(_0x458ce5)_0x458ce5[_0x3171b7(0x13e)]();const _0x3c977a=document[_0x3171b7(0x15a)](_0x3171b7(0x14e));_0x3c977a[_0x3171b7(0x146)]='toast',_0x3c977a[_0x3171b7(0x142)]=_0x3171b7(0x138)+_0x321db5,document['body'][_0x3171b7(0x15c)](_0x3c977a),setTimeout(()=>{const _0x344536=_0x3171b7;_0x3c977a[_0x344536(0x153)][_0x344536(0x14a)]='0',setTimeout(()=>_0x3c977a[_0x344536(0x13e)](),0x12c);},0x9c4);}async function loadChannels(){const _0x30ed31=_0x30aba7;try{const _0x2af701=await fetch(API,{'headers':{'x-api-key':API_KEY}}),_0x5e0b1e=await _0x2af701['json'](),_0x106ee5=_0x5e0b1e[_0x30ed31(0x152)],_0x18594f=_0x5e0b1e[_0x30ed31(0x13a)],_0x5f024d=document[_0x30ed31(0x139)]('channels');_0x5f024d['innerHTML']='',_0x18594f[_0x30ed31(0x144)](_0xc0bcf5=>{const _0x2435c5=_0x30ed31;let _0x37535d='';if(_0xc0bcf5['id'])_0x37535d=_0x106ee5+_0xc0bcf5['id'];if(_0xc0bcf5[_0x2435c5(0x155)])_0x37535d=_0xc0bcf5[_0x2435c5(0x155)];const _0x2f364e=document[_0x2435c5(0x15a)](_0x2435c5(0x14e));_0x2f364e['className']=_0x2435c5(0x14c);const _0x14f4ad=document[_0x2435c5(0x15a)]('div');_0x14f4ad[_0x2435c5(0x146)]=_0x2435c5(0x154);const _0x22a379=document[_0x2435c5(0x15a)](_0x2435c5(0x14f));_0x22a379['src']=_0xc0bcf5[_0x2435c5(0x163)],_0x22a379['alt']=_0xc0bcf5[_0x2435c5(0x145)],_0x22a379[_0x2435c5(0x141)]=_0x2435c5(0x15e),_0x14f4ad[_0x2435c5(0x15c)](_0x22a379);const _0x1e0988=document[_0x2435c5(0x15a)](_0x2435c5(0x14e));_0x1e0988[_0x2435c5(0x146)]=_0x2435c5(0x164);const _0x611d8a=document[_0x2435c5(0x15a)](_0x2435c5(0x14e));_0x611d8a[_0x2435c5(0x146)]=_0x2435c5(0x162),_0x611d8a[_0x2435c5(0x13b)]=_0xc0bcf5[_0x2435c5(0x145)];const _0x529864=document[_0x2435c5(0x15a)](_0x2435c5(0x14e));_0x529864[_0x2435c5(0x146)]=_0x2435c5(0x150),_0x529864[_0x2435c5(0x142)]=_0x2435c5(0x156),_0x1e0988[_0x2435c5(0x15c)](_0x611d8a),_0x1e0988[_0x2435c5(0x15c)](_0x529864),_0x2f364e[_0x2435c5(0x15c)](_0x14f4ad),_0x2f364e[_0x2435c5(0x15c)](_0x1e0988),_0x2f364e[_0x2435c5(0x13f)]=()=>{const _0x43e064=_0x2435c5;window[_0x43e064(0x15f)][_0x43e064(0x161)]=buildIntent(encryptURL(_0x37535d));},_0x5f024d[_0x2435c5(0x15c)](_0x2f364e);});}catch(_0xcb430f){console['error'](_0xcb430f),document[_0x30ed31(0x139)](_0x30ed31(0x13a))[_0x30ed31(0x142)]='<div\x20style=\x22text-align:center;padding:50px;\x22>❌\x20Error\x20loading\x20channels</div>',showMsg('❌\x20Failed\x20to\x20load\x20channels');}}loadChannels();function _0x2664(){const _0xf9cf48=['<i\x20class=\x22fas\x20fa-info-circle\x22></i>\x20','getElementById','channels','innerText','452085uQXxBn','7YtdzLP','remove','onclick','Live\x20Stream','loading','innerHTML','4488415gpfnYJ','forEach','name','className','1803530KVjzoU','2887600ZHobsp','9GUrvVu','opacity','https://alwansport.winsnapoli.workers.dev','card','querySelector','div','img','card-meta','intent://play?url=','baseURL','style','card-media','url','<i\x20class=\x22fas\x20fa-play-circle\x22></i>\x20Watch\x20Now','wins1937@$','12mvMRCg','#Intent;scheme=vexo;package=com.vexo.player;end','createElement','.toast','appendChild','4458966DKpgZW','lazy','location','504396TvcRpE','href','card-title','logo','card-content','1418352GwTSbP'];_0x2664=function(){return _0xf9cf48;};return _0x2664();}
+
+</script>
+
+</body>
+</html>
