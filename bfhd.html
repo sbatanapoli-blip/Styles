@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
-  /* نفس الـ CSS الذي لديك - احتفظ به كما هو */
+  /* ===== PRO CARDS STYLE ===== */
   :root {
     --bg: #05060a;
     --surface: #0c0e14;
@@ -38,6 +38,7 @@
     opacity: 0.6;
   }
 
+  /* ===== CARDS GRID ===== */
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -52,6 +53,7 @@
     }
   }
 
+  /* ===== CARD DESIGN ===== */
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -74,6 +76,7 @@
     transform: translateY(-1px) scale(0.995);
   }
 
+  /* ===== CARD MEDIA ===== */
   .card-media {
     position: relative;
     aspect-ratio: 16/9.5;
@@ -96,6 +99,7 @@
     transform: scale(1.07);
   }
 
+  /* ===== CARD CONTENT ===== */
   .card-content {
     padding: 8px 14px 16px;
     position: relative;
@@ -124,6 +128,7 @@
     margin-top: 4px;
   }
 
+  /* ===== تأثير خلفي للبطاقة ===== */
   .card::after {
     content: '';
     position: absolute;
@@ -134,6 +139,7 @@
     border-radius: var(--radius);
   }
 
+  /* ===== TOAST ===== */
   .toast {
     position: fixed;
     top: 20px;
@@ -166,20 +172,9 @@
 
 <script>
 
-const _API_URL = "aHR0cHM6Ly9iZWluZmhkLndpbnNuYXBvbGkud29ya2Vycy5kZXY=";
+const API = "https://beinfhd.winsnapoli.workers.dev";
+const API_KEY = "wins1937@$";
 
-const _API_KEY = "d2luczE5MzdAJA==";
-
-
-function decrypt(text) {
-    return decodeURIComponent(atob(text));
-}
-
-
-const API = decrypt(_API_URL);
-const API_KEY = decrypt(_API_KEY);
-
-// باقي دوالك كما هي
 function encryptURL(url) {
   return btoa(encodeURIComponent(url))
 }
@@ -211,13 +206,13 @@ function showMsg(txt) {
 async function loadChannels() {
   try {
     const res = await fetch(API, {
-      headers: {
-        "x-api-key": API_KEY
-      }
-    });
+  headers: {
+    "x-api-key": API_KEY
+  }
+});
     const data = await res.json();
     const baseURL = data.baseURL;
-    const channels = data.channels;
+const channels = data.channels;
     const grid = document.getElementById("channels");
     grid.innerHTML = "";
 
@@ -226,9 +221,11 @@ async function loadChannels() {
       if (c.id) url = baseURL + c.id;
       if (c.url) url = c.url;
 
+      // إنشاء البطاقة بالتصميم الاحترافي
       const card = document.createElement("div");
       card.className = "card";
 
+      // قسم الصورة
       const mediaDiv = document.createElement("div");
       mediaDiv.className = "card-media";
       const img = document.createElement("img");
@@ -237,6 +234,7 @@ async function loadChannels() {
       img.loading = "lazy";
       mediaDiv.appendChild(img);
 
+      // قسم المحتوى
       const contentDiv = document.createElement("div");
       contentDiv.className = "card-content";
       const title = document.createElement("div");
@@ -266,6 +264,7 @@ async function loadChannels() {
 }
 
 loadChannels();
+
 </script>
 
 </body>
