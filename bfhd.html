@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Channels</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 <style>
   :root {
     --bg: #05060a;
@@ -86,21 +87,21 @@
     90% { opacity: 1; }
     100% { opacity: 0; visibility: hidden; }
   }
-  .error-msg {
+  .loading-state, .error-state {
     text-align: center;
     padding: 50px;
-    color: #ff6b6b;
+    color: #888;
   }
+  .error-state { color: #ff6b6b; }
 </style>
 </head>
 <body>
 
 <div class="grid" id="channels">
-  <div class="error-msg"><i class="fas fa-spinner fa-spin"></i> جاري تحميل القنوات...</div>
+  <div class="loading-state"><i class="fas fa-spinner fa-spin"></i> جاري تحميل القنوات...</div>
 </div>
 
 <script>
-
 const API = "https://beinfhd.winsnapoli.workers.dev";
 const API_KEY = "wins1937@$";
 
@@ -129,95 +130,40 @@ function buildIntent(enc) {
     + "#Intent;scheme=vexo;package=com.vexo.player;end";
 }
 
-async function loadChannels() {
-  const grid = document.getElementById("channels");
-  
-  // محاولة 1: POST method (أكثر توافقاً)
-  try {
-    console.log("محاولة POST...");
-    const res = await fetch(API, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": API_KEY
-      },
-      body: JSON.stringify({ request: "channels" })
-    });
-    
-    if (res.ok) {
-      const data = await res.json();
-      renderChannels(data, grid);
-      return;
-    }
-  } catch(e) {
-    console.log("POST فشل:", e);
-  }
-  
-  // محاولة 2: GET مع header
-  try {
-    console.log("محاولة GET مع header...");
-    const res = await fetch(API, {
-      method: "GET",
-      headers: {
-        "x-api-key": API_KEY
-      }
-    });
-    
-    if (res.ok) {
-      const data = await res.json();
-      renderChannels(data, grid);
-      return;
-    }
-  } catch(e) {
-    console.log("GET مع header فشل:", e);
-  }
-  
-  // محاولة 3: GET مع token في الـ URL
-  try {
-    console.log("محاولة GET مع token في URL...");
-    const res = await fetch(`${API}?token=${encodeURIComponent(API_KEY)}`);
-    
-    if (res.ok) {
-      const data = await res.json();
-      renderChannels(data, grid);
-      return;
-    }
-  } catch(e) {
-    console.log("GET مع token فشل:", e);
-  }
-  
-  // كل المحاولات فشلت
-  grid.innerHTML = '<div class="error-msg"><i class="fas fa-exclamation-triangle"></i> فشل تحميل القنوات<br><small>تأكد من اتصال الإنترنت وحاول مرة أخرى</small></div>';
-  showMsg("❌ فشل الاتصال بالخادم");
-}
+// بيانات تجريبية (fallback) في حالة فشل الاتصال بالـ Worker
+const FALLBACK_CHANNELS = {
+  baseURL: "https://example.com/",
+  channels: [
+    { id: "1", name: "beIN SPORTS 1", logo: "https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png", url: "https://beout5-i.akamaihd.net/hls/live/1010630/beout5/playlist.m3u8" },
+    { id: "2", name: "beIN SPORTS 2", logo: "https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png", url: "https://beout5-i.akamaihd.net/hls/live/1010630/beout5/playlist.m3u8" },
+    { id: "3", name: "beIN SPORTS 3", logo: "https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png", url: "https://beout5-i.akamaihd.net/hls/live/1010630/beout5/playlist.m3u8" },
+    { id: "4", name: "beIN SPORTS 4", logo: "https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png", url: "https://beout5-i.akamaihd.net/hls/live/1010630/beout5/playlist.m3u8" },
+    { id: "5", name: "beIN SPORTS 5", logo: "https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png", url: "https://beout5-i.akamaihd.net/hls/live/1010630/beout5/playlist.m3u8" },
+    { id: "6", name: "beIN SPORTS 6", logo: "https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png", url: "https://beout5-i.akamaihd.net/hls/live/1010630/beout5/playlist.m3u8" }
+  ]
+};
 
 function renderChannels(data, grid) {
-  if (!data || !data.channels) {
-    grid.innerHTML = '<div class="error-msg"><i class="fas fa-exclamation-triangle"></i> بيانات غير صالحة من الخادم</div>';
-    return;
-  }
-  
   const baseURL = data.baseURL || "";
   const channels = data.channels;
   
   if (!channels || channels.length === 0) {
-    grid.innerHTML = '<div class="error-msg"><i class="fas fa-info-circle"></i> لا توجد قنوات متاحة حالياً</div>';
+    grid.innerHTML = '<div class="error-state"><i class="fas fa-exclamation-triangle"></i> لا توجد قنوات متاحة</div>';
     return;
   }
   
   grid.innerHTML = "";
   
   channels.forEach(c => {
-    let url = "";
-    if (c.id) url = baseURL + c.id;
-    if (c.url) url = c.url;
+    let url = c.url || "";
+    if (!url && c.id) url = baseURL + c.id;
     
     const card = document.createElement("div");
     card.className = "card";
     
     card.innerHTML = `
       <div class="card-media">
-        <img src="${c.logo}" alt="${c.name}" loading="lazy">
+        <img src="${c.logo}" alt="${c.name}" loading="lazy" onerror="this.src='https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png'">
       </div>
       <div class="card-content">
         <div class="card-title">${c.name}</div>
@@ -239,9 +185,45 @@ function renderChannels(data, grid) {
   showMsg(`✅ تم تحميل ${channels.length} قناة`);
 }
 
+async function loadChannels() {
+  const grid = document.getElementById("channels");
+  
+  // محاولة الاتصال بالـ Worker مع timeout
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000);
+  
+  try {
+    console.log("محاولة الاتصال بـ Worker...");
+    const res = await fetch(API, {
+      method: "GET",
+      headers: { "x-api-key": API_KEY },
+      signal: controller.signal,
+      mode: "cors"
+    });
+    
+    clearTimeout(timeoutId);
+    
+    if (res.ok) {
+      const data = await res.json();
+      console.log("تم استلام البيانات من Worker:", data);
+      renderChannels(data, grid);
+      return;
+    } else {
+      console.log("Worker رد بـ status:", res.status);
+      throw new Error(`HTTP ${res.status}`);
+    }
+  } catch(e) {
+    clearTimeout(timeoutId);
+    console.log("فشل الاتصال بالـ Worker، استخدام البيانات المحلية:", e.message);
+    
+    // استخدام البيانات التجريبية (fallback)
+    renderChannels(FALLBACK_CHANNELS, grid);
+    showMsg("⚠️ جاري استخدام البث التجريبي - تأكد من اتصالك بالإنترنت");
+  }
+}
+
 // بدء التحميل
 loadChannels();
-
 </script>
 
 </body>
