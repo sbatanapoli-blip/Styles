@@ -405,10 +405,542 @@
 </div>
 
 <script>
+  // ============================================
+  // 📦 Data with Groups
+  // ============================================
+  const cardsData = [
+    // SPORTS
+    { id: 1, img: "https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png", name: "beIN SPORTS FHD", href: "bfhd.html", group: "SPORTS" },
+    { id: 2, img: "https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png", name: "beIN SPORTS HD", href: "bhd.html", group: "SPORTS" },
+    { id: 3, img: "https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png", name: "beIN SPORTS SD", href: "bsd.html", group: "SPORTS" },
+    { id: 90, img: "https://i.postimg.cc/QMfVdgvv/gettyimages-1445531216-640x640.jpg", name: "beIN World Cup", href: "bmx.html", group: "SPORTS" },
+    { id: 4, img: "https://i.postimg.cc/3wYNgK89/20260209-025211.jpg", name: "Alwan Sports", href: "al.html", group: "SPORTS" },
+    { id: 5, img: "https://i.postimg.cc/kMWp9Ncn/20260209002112.jpg", name: "Thmanyah Sports", href: "th.html", group: "SPORTS" },
+    { id: 6, img: "https://i.postimg.cc/0j3Kg4Xc/images.jpg", name: "Arabic Sports", href: "ars.html", group: "SPORTS" },
+    
+    // ENTERTAINMENT (Premium)
+    { id: 7, img: "https://i.postimg.cc/Y9tCPf06/20260303-222958.png", name: "Netflix", href: "ne.html", group: "ENTERTAINMENT", isPremium: true, premiumKey: "netflix" },
+    { id: 8, img: "https://i.postimg.cc/yNhW80GP/osn-logo-9.jpg", name: "OSN", href: "os.html", group: "ENTERTAINMENT" },
+    { id: 15, img: "https://i.postimg.cc/K8DDN1nF/2dbab4496267132df5f82.jpg", name: "Akwam", href: "ak.html", group: "ENTERTAINMENT" },
+    { id: 9, img: "https://i.postimg.cc/wvmsmzBD/aawgl5egj.png", name: "MBC Group", href: "mb.html", group: "ENTERTAINMENT" },
+    { id: 10, img: "https://i.postimg.cc/Dz3NMsx3/spotify.jpg", name: "Spotify", href: "sp.html", group: "ENTERTAINMENT", isPremium: true, premiumKey: "spotify" },
+    { id: 25, img: "https://i.postimg.cc/tJnC8HmJ/primevideo-seo-logo.png", name: "Amazon Prime", href: "amz.html", group: "ENTERTAINMENT", isPremium: true, premiumKey: "amazon" },
+    { id: 26, img: "https://i.postimg.cc/tJnC8HmJ/primevideo-seo-logo.png", name: "BoxOffice", href: "bfx.html", group: "ENTERTAINMENT", isPremium: true, premiumKey: "boxoffice" },
+    
+    // COUNTRIES
+    { id: 29, img: "https://i.postimg.cc/9X6kN4PC/gros_plan_du_drapeau_ondulant_du_maroc_textures_interessantes_181624_14367.jpg", name: "Morocco", href: "mr.html", group: "COUNTRIES" },
+    { id: 12, img: "https://i.postimg.cc/HLMSRhFC/images-(16).jpg", name: "Algeria", href: "alg.html", group: "COUNTRIES" },
+    { id: 13, img: "https://i.postimg.cc/dQZ0XmV8/images-(15).jpg", name: "Tunisia", href: "tun.html", group: "COUNTRIES" },
+    { id: 14, img: "https://i.postimg.cc/RZPcVL5R/images-(18).jpg", name: "Egypt", href: "eg.html", group: "COUNTRIES" },
+    { id: 0, img: "https://i.postimg.cc/fyfGLTkm/pngtree-waving-kuwait-flag-background-picture-image-1917207.png", name: "Kuwait", href: "kw.html", group: "COUNTRIES" },
+    { id: 20, img: "https://i.postimg.cc/wTQd0Fqy/Iraq.jpg", name: "Iraq", href: "ir.html", group: "COUNTRIES" },
+    
+    // ISLAM & KIDS
+    { id: 27, img: "https://i.postimg.cc/tJnC8HmJ/primevideo-seo-logo.png", name: "France", href: "fr.html", group: "ISLAM" },
+    { id: 28, img: "https://i.postimg.cc/tJnC8HmJ/primevideo-seo-logo.png", name: "France 3", href: "fr3.html", group: "ISLAM" },
+    { id: 4, img: "https://i.postimg.cc/N0K33BcT/galil-tv-logo-red.png", name: "Developer Panel", href: "go.html", group: "KIDS" }
+  ];
 
-const _0x6772e3=_0x225f;(function(_0x231422,_0x534e11){const _0x475c7d=_0x225f,_0x1703d9=_0x231422();while(!![]){try{const _0x54b548=parseInt(_0x475c7d(0x1a1))/0x1+-parseInt(_0x475c7d(0x19c))/0x2+-parseInt(_0x475c7d(0x1b3))/0x3+parseInt(_0x475c7d(0x198))/0x4*(-parseInt(_0x475c7d(0x219))/0x5)+parseInt(_0x475c7d(0x1c8))/0x6*(-parseInt(_0x475c7d(0x1bf))/0x7)+-parseInt(_0x475c7d(0x203))/0x8+parseInt(_0x475c7d(0x238))/0x9*(parseInt(_0x475c7d(0x22d))/0xa);if(_0x54b548===_0x534e11)break;else _0x1703d9['push'](_0x1703d9['shift']());}catch(_0x18b764){_0x1703d9['push'](_0x1703d9['shift']());}}}(_0xa858,0x255e4));const cardsData=[{'id':0x1,'img':_0x6772e3(0x1c2),'name':_0x6772e3(0x1c9),'href':_0x6772e3(0x1b5),'group':'SPORTS'},{'id':0x2,'img':_0x6772e3(0x1c2),'name':_0x6772e3(0x207),'href':_0x6772e3(0x1b4),'group':_0x6772e3(0x1e4)},{'id':0x3,'img':_0x6772e3(0x1c2),'name':_0x6772e3(0x226),'href':_0x6772e3(0x192),'group':_0x6772e3(0x1e4)},{'id':0x5a,'img':'https://i.postimg.cc/QMfVdgvv/gettyimages-1445531216-640x640.jpg','name':_0x6772e3(0x1a0),'href':_0x6772e3(0x22e),'group':_0x6772e3(0x1e4)},{'id':0x4,'img':_0x6772e3(0x1b8),'name':_0x6772e3(0x191),'href':_0x6772e3(0x1db),'group':_0x6772e3(0x1e4)},{'id':0x5,'img':_0x6772e3(0x22b),'name':'Thmanyah\x20Sports','href':_0x6772e3(0x1ef),'group':_0x6772e3(0x1e4)},{'id':0x6,'img':_0x6772e3(0x1c5),'name':_0x6772e3(0x19f),'href':_0x6772e3(0x22a),'group':_0x6772e3(0x1e4)},{'id':0x7,'img':_0x6772e3(0x235),'name':'Netflix','href':_0x6772e3(0x20c),'group':_0x6772e3(0x204),'isPremium':!![],'premiumKey':'netflix'},{'id':0x8,'img':_0x6772e3(0x21d),'name':'OSN','href':'Os.html','group':_0x6772e3(0x204)},{'id':0xf,'img':_0x6772e3(0x1a4),'name':'Akwam','href':_0x6772e3(0x216),'group':_0x6772e3(0x204)},{'id':0x9,'img':_0x6772e3(0x1f1),'name':_0x6772e3(0x225),'href':_0x6772e3(0x231),'group':_0x6772e3(0x204)},{'id':0xa,'img':_0x6772e3(0x1a6),'name':_0x6772e3(0x23e),'href':_0x6772e3(0x234),'group':_0x6772e3(0x204),'isPremium':!![],'premiumKey':_0x6772e3(0x239)},{'id':0x19,'img':_0x6772e3(0x195),'name':'Amazon\x20Prime','href':_0x6772e3(0x1b1),'group':_0x6772e3(0x204),'isPremium':!![],'premiumKey':_0x6772e3(0x1a8)},{'id':0x1a,'img':_0x6772e3(0x195),'name':_0x6772e3(0x210),'href':_0x6772e3(0x206),'group':_0x6772e3(0x204),'isPremium':!![],'premiumKey':_0x6772e3(0x208)},{'id':0x1d,'img':_0x6772e3(0x1de),'name':_0x6772e3(0x229),'href':'go:29','group':'COUNTRIES'},{'id':0xc,'img':'https://i.postimg.cc/HLMSRhFC/images-(16).jpg','name':_0x6772e3(0x1d2),'href':'go:12','group':'COUNTRIES'},{'id':0xd,'img':'https://i.postimg.cc/dQZ0XmV8/images-(15).jpg','name':_0x6772e3(0x1d3),'href':'go:13','group':_0x6772e3(0x1d6)},{'id':0xe,'img':'https://i.postimg.cc/RZPcVL5R/images-(18).jpg','name':_0x6772e3(0x1b2),'href':_0x6772e3(0x19b),'group':'COUNTRIES'},{'id':0x0,'img':_0x6772e3(0x1e5),'name':_0x6772e3(0x224),'href':_0x6772e3(0x1f5),'group':'COUNTRIES'},{'id':0x14,'img':_0x6772e3(0x1f4),'name':'Iraq','href':_0x6772e3(0x187),'group':_0x6772e3(0x1d6)},{'id':0x1b,'img':'https://i.postimg.cc/tJnC8HmJ/primevideo-seo-logo.png','name':_0x6772e3(0x23d),'href':_0x6772e3(0x1fc),'group':_0x6772e3(0x1e3)},{'id':0x1c,'img':_0x6772e3(0x195),'name':_0x6772e3(0x1b0),'href':_0x6772e3(0x1d0),'group':_0x6772e3(0x1e3)},{'id':0x4,'img':'https://i.postimg.cc/N0K33BcT/galil-tv-logo-red.png','name':_0x6772e3(0x1ad),'href':_0x6772e3(0x202),'group':_0x6772e3(0x1bd)}];let premiumState={'netflix':{'unlocked':![],'expiry':null},'spotify':{'unlocked':![],'expiry':null},'amazon':{'unlocked':![],'expiry':null},'boxoffice':{'unlocked':![],'expiry':null}},currentPremiumKey=null,countdownInterval=null;function formatTimeLeft(_0x5cbc1a){const _0x4a9710=_0x6772e3;if(_0x5cbc1a<=0x0)return _0x4a9710(0x23a);let _0x39bf85=Math['floor'](_0x5cbc1a/0xea60),_0x213be2=Math[_0x4a9710(0x1c4)](_0x5cbc1a%0xea60/0x3e8);return _0x39bf85[_0x4a9710(0x217)]()['padStart'](0x2,'0')+':'+_0x213be2['toString']()['padStart'](0x2,'0');}function savePremiumState(){const _0xf33470=_0x6772e3;let _0x401d10={};for(let _0x16d5d6 in premiumState){_0x401d10[_0x16d5d6]={'unlocked':premiumState[_0x16d5d6][_0xf33470(0x1fa)],'expiry':premiumState[_0x16d5d6][_0xf33470(0x228)]};}localStorage[_0xf33470(0x20e)](_0xf33470(0x1b7),JSON[_0xf33470(0x1d1)](_0x401d10));}function loadPremiumState(){const _0x28af8e=_0x6772e3;let _0x3f3db9=localStorage[_0x28af8e(0x1e6)](_0x28af8e(0x1b7));if(!_0x3f3db9)return;try{let _0x525d6b=JSON['parse'](_0x3f3db9);for(let _0x4a0c5d in premiumState){_0x525d6b[_0x4a0c5d]&&(_0x525d6b[_0x4a0c5d][_0x28af8e(0x1fa)]&&_0x525d6b[_0x4a0c5d][_0x28af8e(0x228)]&&_0x525d6b[_0x4a0c5d][_0x28af8e(0x228)]>Date[_0x28af8e(0x1ea)]()?premiumState[_0x4a0c5d]={'unlocked':!![],'expiry':_0x525d6b[_0x4a0c5d][_0x28af8e(0x228)]}:premiumState[_0x4a0c5d]={'unlocked':![],'expiry':null});}}catch(_0x2e8f9b){}}function unlockPremiumCategory(_0x193dd8,_0x572ce7=0xf){const _0x1968ae=_0x6772e3;let _0x5ba55d=Date[_0x1968ae(0x1ea)]()+_0x572ce7*0x3c*0x3e8;premiumState[_0x193dd8]&&(premiumState[_0x193dd8][_0x1968ae(0x1fa)]=!![],premiumState[_0x193dd8][_0x1968ae(0x228)]=_0x5ba55d),savePremiumState(),updateAllPremiumCardsUI(),startGlobalTimer(),showMsg('✨\x20'+getPremiumName(_0x193dd8)+_0x1968ae(0x197)+_0x572ce7+'\x20minutes!\x20✨');}function getPremiumName(_0x1a0656){const _0x590474=_0x6772e3,_0x464f66={'netflix':_0x590474(0x209),'spotify':_0x590474(0x23e),'amazon':_0x590474(0x1f7),'boxoffice':'BoxOffice'};return _0x464f66[_0x1a0656]||_0x1a0656;}function isPremiumUnlocked(_0x1cc10e){const _0x1d3d92=_0x6772e3;let _0x10badc=premiumState[_0x1cc10e];if(_0x10badc&&_0x10badc[_0x1d3d92(0x1fa)]&&_0x10badc['expiry']&&_0x10badc['expiry']>Date[_0x1d3d92(0x1ea)]())return!![];try{let _0x5358bd=localStorage['getItem'](_0x1d3d92(0x1b7));if(_0x5358bd){let _0x3344ca=JSON['parse'](_0x5358bd);if(_0x3344ca[_0x1cc10e]&&_0x3344ca[_0x1cc10e][_0x1d3d92(0x1fa)]&&_0x3344ca[_0x1cc10e][_0x1d3d92(0x228)]>Date[_0x1d3d92(0x1ea)]())return premiumState[_0x1cc10e]=_0x3344ca[_0x1cc10e],!![];}}catch(_0x470b73){}return![];}function _0x225f(_0x423394,_0x22df25){const _0xa858a1=_0xa858();return _0x225f=function(_0x225fe9,_0x4f2d4f){_0x225fe9=_0x225fe9-0x186;let _0x4c52e3=_0xa858a1[_0x225fe9];return _0x4c52e3;},_0x225f(_0x423394,_0x22df25);}function updateAllPremiumCardsUI(){const _0x64d5a=_0x6772e3,_0x1faf61=document['querySelectorAll'](_0x64d5a(0x19a));_0x1faf61['forEach'](_0x3c6cc2=>{const _0x93922d=_0x64d5a;let _0x2a4bc5=_0x3c6cc2[_0x93922d(0x190)](_0x93922d(0x222)),_0x37c337=premiumState[_0x2a4bc5],_0x46764a=_0x3c6cc2[_0x93922d(0x1f0)](_0x93922d(0x20d));if(_0x37c337&&_0x37c337[_0x93922d(0x1fa)]&&_0x37c337[_0x93922d(0x228)]&&_0x37c337['expiry']>Date['now']()){let _0x68a0ff=_0x37c337[_0x93922d(0x228)]-Date[_0x93922d(0x1ea)]();if(_0x46764a)_0x46764a[_0x93922d(0x1d9)]=_0x93922d(0x232)+formatTimeLeft(_0x68a0ff);else{let _0x397fc3=document[_0x93922d(0x221)](_0x93922d(0x18c));_0x397fc3[_0x93922d(0x1c7)]='premium-timer',_0x397fc3[_0x93922d(0x1d9)]=_0x93922d(0x232)+formatTimeLeft(_0x68a0ff),_0x3c6cc2[_0x93922d(0x21b)](_0x397fc3);}_0x3c6cc2[_0x93922d(0x1d5)][_0x93922d(0x189)]='1';}else{if(_0x37c337&&_0x37c337[_0x93922d(0x1fa)]&&_0x37c337[_0x93922d(0x228)]&&_0x37c337['expiry']<=Date[_0x93922d(0x1ea)]()){_0x37c337[_0x93922d(0x1fa)]=![],_0x37c337[_0x93922d(0x228)]=null,savePremiumState();if(_0x46764a)_0x46764a['remove']();showMsg('⏰\x20'+getPremiumName(_0x2a4bc5)+'\x20time\x20expired,\x20watch\x20ad\x20again');}else{if(_0x46764a)_0x46764a['remove']();_0x3c6cc2[_0x93922d(0x1d5)][_0x93922d(0x189)]='1';}}});}function startGlobalTimer(){if(countdownInterval)clearInterval(countdownInterval);countdownInterval=setInterval(()=>{const _0x2637d6=_0x225f;let _0x390087=![];for(let _0x503eeb in premiumState){let _0x287dda=premiumState[_0x503eeb];_0x287dda['unlocked']&&_0x287dda[_0x2637d6(0x228)]&&_0x287dda[_0x2637d6(0x228)]<=Date[_0x2637d6(0x1ea)]()&&(_0x287dda[_0x2637d6(0x1fa)]=![],_0x287dda[_0x2637d6(0x228)]=null,_0x390087=!![]);}_0x390087?(savePremiumState(),updateAllPremiumCardsUI()):updateAllPremiumCardsUI();},0x3e8);}function startPremiumSessionGuard(){setInterval(()=>{const _0x814105=_0x225f;let _0x16967d=![];for(let _0x2feaad in premiumState){let _0x34451f=premiumState[_0x2feaad];_0x34451f[_0x814105(0x1fa)]&&_0x34451f[_0x814105(0x228)]&&_0x34451f[_0x814105(0x228)]<=Date[_0x814105(0x1ea)]()&&(_0x34451f['unlocked']=![],_0x34451f[_0x814105(0x228)]=null,savePremiumState(),isCurrentlyWatching(_0x2feaad)&&forceLogoutFromPremium(_0x2feaad),_0x16967d=!![],showMsg(_0x814105(0x1ed)+getPremiumName(_0x2feaad)));}if(_0x16967d)updateAllPremiumCardsUI();},0x7530);}function isCurrentlyWatching(_0x58e2ba){const _0x27633b=_0x6772e3,_0x544b5b=window[_0x27633b(0x1cf)]['href'],_0x327671=cardsData['find'](_0x2d9490=>_0x2d9490[_0x27633b(0x1c0)]===_0x58e2ba);if(_0x327671&&_0x544b5b[_0x27633b(0x1c3)](_0x327671[_0x27633b(0x18a)]['split'](':')[0x1]))return!![];try{let _0x2d915b=localStorage['getItem']('galil_active_session');if(_0x2d915b===_0x58e2ba)return!![];}catch(_0x22ddd0){}return![];}function forceLogoutFromPremium(_0x1d82c0){const _0x1cf07c=_0x6772e3;localStorage[_0x1cf07c(0x1b6)](_0x1cf07c(0x1cc)),window[_0x1cf07c(0x1cf)][_0x1cf07c(0x18a)]!==window[_0x1cf07c(0x1cf)][_0x1cf07c(0x1af)]+window[_0x1cf07c(0x1cf)][_0x1cf07c(0x21f)]&&(window[_0x1cf07c(0x1cf)]['href']=window[_0x1cf07c(0x1cf)][_0x1cf07c(0x18a)]),window['Android']&&typeof window['Android'][_0x1cf07c(0x19d)]===_0x1cf07c(0x213)&&window[_0x1cf07c(0x18b)]['onPremiumExpired'](_0x1d82c0),console[_0x1cf07c(0x201)](_0x1cf07c(0x23b)+_0x1d82c0);}const RewardedAds={'isLoaded':![],'currentCategoryKey':null,'init':function(){const _0x18748a=_0x6772e3;this[_0x18748a(0x215)](),this[_0x18748a(0x236)]();},'preloadAd':function(){const _0x433aa2=_0x6772e3;this[_0x433aa2(0x1d8)]=![],window['Android']&&typeof window[_0x433aa2(0x18b)][_0x433aa2(0x1fe)]===_0x433aa2(0x213)?(console[_0x433aa2(0x201)]('📡\x20Loading\x20rewarded\x20ad\x20from\x20Android'),window[_0x433aa2(0x18b)]['loadRewardedAd'](),setTimeout(()=>{const _0x831043=_0x433aa2;!this[_0x831043(0x1d8)]&&(console[_0x831043(0x201)](_0x831043(0x1ff)),window[_0x831043(0x18b)][_0x831043(0x1fe)]());},0x2710)):(console[_0x433aa2(0x201)]('⚠️\x20Android\x20bridge\x20not\x20available,\x20using\x20test\x20mode'),this[_0x433aa2(0x1d8)]=!![]);},'showModal':function(_0x176c66,_0x4b5ab0){const _0x81407d=_0x6772e3;this[_0x81407d(0x21a)]=_0x176c66;const _0x419f3c=document[_0x81407d(0x1a3)]('premiumModal'),_0x163e84=document[_0x81407d(0x1a3)]('modalTitle'),_0x724049=document[_0x81407d(0x1a3)]('premiumName'),_0x4fabb1=document[_0x81407d(0x1a3)](_0x81407d(0x214)),_0x4b23cb=document[_0x81407d(0x1a3)]('adStatus');if(_0x163e84)_0x163e84['innerHTML']=_0x4b5ab0+'\x20VIP';if(_0x724049)_0x724049[_0x81407d(0x1bc)]=_0x4b5ab0;_0x4fabb1&&(_0x4fabb1[_0x81407d(0x1d7)]=!this['isLoaded']);if(_0x4b23cb)_0x4b23cb[_0x81407d(0x1fb)][_0x81407d(0x1be)](_0x81407d(0x212));_0x419f3c[_0x81407d(0x1fb)][_0x81407d(0x1be)](_0x81407d(0x199));},'hideModal':function(){const _0x1d4ca5=_0x6772e3,_0x1f896b=document[_0x1d4ca5(0x1a3)](_0x1d4ca5(0x1a2)),_0x5491a3=document[_0x1d4ca5(0x1a3)](_0x1d4ca5(0x1cd));_0x1f896b[_0x1d4ca5(0x1fb)][_0x1d4ca5(0x1f8)](_0x1d4ca5(0x199));if(_0x5491a3)_0x5491a3[_0x1d4ca5(0x1fb)][_0x1d4ca5(0x1be)](_0x1d4ca5(0x212));this[_0x1d4ca5(0x21a)]=null;},'setupModalListeners':function(){const _0x441dfb=_0x6772e3,_0x3ef05d=document[_0x441dfb(0x1a3)]('modalCloseBtn'),_0x1e810a=document[_0x441dfb(0x1a3)]('closeModalBtn'),_0x30df2b=document[_0x441dfb(0x1a3)](_0x441dfb(0x214));if(_0x3ef05d)_0x3ef05d[_0x441dfb(0x1ac)]=()=>this['hideModal']();if(_0x1e810a)_0x1e810a[_0x441dfb(0x1ac)]=()=>this[_0x441dfb(0x1a7)]();if(_0x30df2b)_0x30df2b[_0x441dfb(0x1ac)]=()=>this[_0x441dfb(0x1cb)]();},'showAd':function(){const _0x5b1893=_0x6772e3,_0x530ddb=document[_0x5b1893(0x1a3)]('watchAdBtn'),_0xe5a641=document[_0x5b1893(0x1a3)](_0x5b1893(0x1cd)),_0x3554fa=this[_0x5b1893(0x21a)];if(!_0x3554fa){console['error'](_0x5b1893(0x1e8));return;}_0x530ddb[_0x5b1893(0x1d7)]=!![];if(_0xe5a641)_0xe5a641['classList'][_0x5b1893(0x1f8)](_0x5b1893(0x212));if(window[_0x5b1893(0x18b)]&&typeof window[_0x5b1893(0x18b)][_0x5b1893(0x1ba)]===_0x5b1893(0x213)){const _0x4d2fd1=getPremiumName(_0x3554fa);console['log'](_0x5b1893(0x23c),_0x3554fa,_0x4d2fd1),window[_0x5b1893(0x18b)][_0x5b1893(0x1ba)](_0x3554fa,_0x4d2fd1);}else console[_0x5b1893(0x201)](_0x5b1893(0x1ab)),setTimeout(()=>{this['onAdRewarded']();},0x7d0);},'onAdLoaded':function(){const _0x20a411=_0x6772e3;console['log']('✅\x20Rewarded\x20ad\x20loaded\x20successfully'),this[_0x20a411(0x1d8)]=!![];const _0x320b8e=document[_0x20a411(0x1a3)]('watchAdBtn'),_0xe15c86=document[_0x20a411(0x1a3)](_0x20a411(0x1cd));if(_0x320b8e)_0x320b8e[_0x20a411(0x1d7)]=![];if(_0xe15c86)_0xe15c86[_0x20a411(0x1fb)]['add']('hidden');},'onAdFailed':function(){const _0x5ede1a=_0x6772e3;console[_0x5ede1a(0x201)](_0x5ede1a(0x218)),this[_0x5ede1a(0x1d8)]=![];const _0x52052c=document[_0x5ede1a(0x1a3)](_0x5ede1a(0x214)),_0x168dfe=document[_0x5ede1a(0x1a3)]('adStatus');if(_0x52052c)_0x52052c['disabled']=![];if(_0x168dfe)_0x168dfe[_0x5ede1a(0x1fb)][_0x5ede1a(0x1be)](_0x5ede1a(0x212));showMsg('⚠️\x20Ad\x20not\x20available,\x20please\x20try\x20again'),setTimeout(()=>this['preloadAd'](),0x1388);},'onAdRewarded':function(){const _0x5c8ff1=_0x6772e3;console['log'](_0x5c8ff1(0x220),this[_0x5c8ff1(0x21a)]);const _0x1cb648=this[_0x5c8ff1(0x21a)];_0x1cb648&&unlockPremiumCategory(_0x1cb648,0xf),this[_0x5c8ff1(0x1a7)](),setTimeout(()=>{const _0x23c839=_0x5c8ff1,_0x1fabef=cardsData['find'](_0xa4b5b3=>_0xa4b5b3[_0x23c839(0x1c0)]===_0x1cb648);_0x1fabef&&_0x1fabef['href']&&(window[_0x23c839(0x1cf)][_0x23c839(0x18a)]=_0x1fabef[_0x23c839(0x18a)]);},0x320),setTimeout(()=>this['preloadAd'](),0xbb8);},'onAdNotAvailable':function(){const _0x1e6de1=_0x6772e3;console['log'](_0x1e6de1(0x21e));const _0x279d65=document[_0x1e6de1(0x1a3)]('watchAdBtn'),_0x16fdfc=document[_0x1e6de1(0x1a3)](_0x1e6de1(0x1cd));if(_0x279d65)_0x279d65['disabled']=![];if(_0x16fdfc)_0x16fdfc[_0x1e6de1(0x1fb)][_0x1e6de1(0x1be)]('hidden');showMsg(_0x1e6de1(0x1c1));}};window[_0x6772e3(0x230)]=RewardedAds;const slides=document[_0x6772e3(0x1c6)](_0x6772e3(0x1bb));let slideIndex=0x0;function _0xa858(){const _0x1e65f0=['Spotify','\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<i\x20class=\x22fas\x20','group-header','\x22></i>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','go:20','fa-film','opacity','href','Android','div','isPremium','fa-child','src','getAttribute','Alwan\x20Sports','bsd.html','click','true','https://i.postimg.cc/tJnC8HmJ/primevideo-seo-logo.png','\x20-\x20Coming\x20Soon','\x20unlocked\x20for\x20','263836BAbngC','active','.card[data-premium]','go:14','509486EvkFXp','onPremiumExpired','card','Arabic\x20Sports','beIN\x20World\x20Cup','189920QnWTfn','premiumModal','getElementById','https://i.postimg.cc/K8DDN1nF/2dbab4496267132df5f82.jpg','length','https://i.postimg.cc/Dz3NMsx3/spotify.jpg','hideModal','amazon','alt','card-media','⚠️\x20Test\x20mode:\x20simulating\x20ad','onclick','Developer\x20Panel','🎬\x20Opening\x20','origin','France\x203','go:71','Egypt','811326SJUduE','bhd.html','bfhd.html','removeItem','galil_vip_rewards','https://i.postimg.cc/3wYNgK89/20260209-025211.jpg','DOMContentLoaded','showRewardedAd','.slide','innerText','KIDS','add','84RaZdMl','premiumKey','⚠️\x20No\x20ad\x20available,\x20please\x20try\x20again\x20later','https://i.postimg.cc/CxK3Fkz8/Bein_sport_logo.png','includes','floor','https://i.postimg.cc/0j3Kg4Xc/images.jpg','querySelectorAll','className','13926PlLDsj','beIN\x20SPORTS\x20FHD','vip-badge','showAd','galil_active_session','adStatus','forEach','location','go:28','stringify','Algeria','Tunisia','fa-futbol','style','COUNTRIES','disabled','isLoaded','innerHTML','back','al.html','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20','.toast','https://i.postimg.cc/9X6kN4PC/gros_plan_du_drapeau_ondulant_du_maroc_textures_interessantes_181624_14367.jpg','data-premium','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22group-badge\x20','card-title','addEventListener','ISLAM','SPORTS','https://i.postimg.cc/fyfGLTkm/pngtree-waving-kuwait-flag-background-picture-image-1917207.png','getItem','setAttribute','No\x20category\x20key\x20set','push','now','showModal','<i\x20class=\x22fas\x20fa-play-circle\x22></i>\x20Watch\x20Now','⏰\x20Session\x20ended\x20for\x20','init','th.html','querySelector','https://i.postimg.cc/wvmsmzBD/aawgl5egj.png','\x20min\x20left)','fa-mosque','https://i.postimg.cc/wTQd0Fqy/Iraq.jpg','go:0','loading','Amazon\x20Prime','remove','goBack','unlocked','classList','go:27','🏠\x20Home','loadRewardedAd','⚠️\x20Ad\x20loading\x20timeout,\x20retrying...','cardsGrid','log','go:04','3472PECIxY','ENTERTAINMENT','history','go:72','beIN\x20SPORTS\x20HD','boxoffice','Netflix','<i\x20class=\x22fas\x20fa-info-circle\x22></i>\x20','group','ne.html','.premium-timer','setItem','fa-tag','BoxOffice','\x20👑','hidden','function','watchAdBtn','setupModalListeners','go:15','toString','❌\x20Rewarded\x20ad\x20failed\x20to\x20load','20GFTYSL','currentCategoryKey','appendChild','showMsg','https://i.postimg.cc/yNhW80GP/osn-logo-9.jpg','⚠️\x20Ad\x20not\x20available\x20at\x20this\x20time','pathname','🎉\x20Reward\x20earned!\x20Unlocking\x20category:','createElement','data-premium-key','name','Kuwait','MBC\x20Group','beIN\x20SPORTS\x20SD','toast','expiry','Morocco','go:6','https://i.postimg.cc/kMWp9Ncn/20260209002112.jpg','fa-flag','7804470TJFtqG','bmx.html','img','RewardedAds','go:9','<i\x20class=\x22\x22></i>\x20','🔜\x20','go:70','https://i.postimg.cc/Y9tCPf06/20260303-222958.png','preloadAd','card-content','9oxrNrn','spotify','00:00','🔒\x20Force\x20closed\x20session\x20for:\x20','📡\x20Showing\x20rewarded\x20ad\x20for:','France'];_0xa858=function(){return _0x1e65f0;};return _0xa858();}function showSlide(_0x39f3e7){const _0x507c6d=_0x6772e3;slides[slideIndex]?.[_0x507c6d(0x1fb)]['remove'](_0x507c6d(0x199)),slideIndex=_0x39f3e7,slides[slideIndex]?.[_0x507c6d(0x1fb)]['add']('active');}setInterval(()=>{showSlide((slideIndex+0x1)%slides['length']);},0x1388);function renderCards(){const _0x36ec38=_0x6772e3,_0x4f76ee=document[_0x36ec38(0x1a3)](_0x36ec38(0x200));if(!_0x4f76ee)return;_0x4f76ee[_0x36ec38(0x1d9)]='';const _0x173979=['SPORTS',_0x36ec38(0x204),_0x36ec38(0x1d6),_0x36ec38(0x1e3),_0x36ec38(0x1bd)],_0xa289a8={'SPORTS':_0x36ec38(0x1d4),'ENTERTAINMENT':_0x36ec38(0x188),'COUNTRIES':_0x36ec38(0x22c),'ISLAM':_0x36ec38(0x1f3),'KIDS':_0x36ec38(0x18e)},_0x121f9c={};cardsData[_0x36ec38(0x1ce)](_0x10aa13=>{const _0x3a8a64=_0x36ec38;let _0xd6187e=_0x10aa13[_0x3a8a64(0x20b)];if(!_0x121f9c[_0xd6187e])_0x121f9c[_0xd6187e]=[];_0x121f9c[_0xd6187e][_0x3a8a64(0x1e9)](_0x10aa13);}),_0x173979['forEach'](_0x3ee918=>{const _0x16a5ea=_0x36ec38,_0x2f8b6e=_0x121f9c[_0x3ee918];if(_0x2f8b6e&&_0x2f8b6e[_0x16a5ea(0x1a5)]>0x0){const _0x5097ff=document[_0x16a5ea(0x221)](_0x16a5ea(0x18c));_0x5097ff[_0x16a5ea(0x1c7)]=_0x16a5ea(0x240);let _0x344a56=_0x3ee918===_0x16a5ea(0x204)?_0x16a5ea(0x1ca):'';_0x5097ff[_0x16a5ea(0x1d9)]=_0x16a5ea(0x1e0)+_0x344a56+_0x16a5ea(0x23f)+(_0xa289a8[_0x3ee918]||_0x16a5ea(0x20f))+_0x16a5ea(0x186)+_0x3ee918+_0x16a5ea(0x1dc),_0x4f76ee['appendChild'](_0x5097ff),_0x2f8b6e[_0x16a5ea(0x1ce)](_0x59c175=>{const _0x35aae9=_0x16a5ea,_0x5d1869=document['createElement'](_0x35aae9(0x18c));_0x5d1869[_0x35aae9(0x1c7)]=_0x35aae9(0x19e);_0x59c175['isPremium']&&(_0x5d1869['setAttribute'](_0x35aae9(0x1df),_0x35aae9(0x194)),_0x5d1869[_0x35aae9(0x1e7)](_0x35aae9(0x222),_0x59c175[_0x35aae9(0x1c0)]));_0x5d1869[_0x35aae9(0x1ac)]=()=>{const _0x5cb396=_0x35aae9;if(_0x59c175[_0x5cb396(0x18d)]){let _0x2bc931=_0x59c175[_0x5cb396(0x1c0)];if(isPremiumUnlocked(_0x2bc931)){localStorage[_0x5cb396(0x20e)]('galil_active_session',_0x2bc931);let _0x9a9693=Math[_0x5cb396(0x1c4)]((premiumState[_0x2bc931][_0x5cb396(0x228)]-Date['now']())/0xea60);showMsg(_0x5cb396(0x1ae)+_0x59c175['name']+'...\x20('+_0x9a9693+_0x5cb396(0x1f2)),window['location'][_0x5cb396(0x18a)]=_0x59c175[_0x5cb396(0x18a)];}else showMsg('⏰\x20Access\x20expired\x20for\x20'+_0x59c175[_0x5cb396(0x223)]),RewardedAds[_0x5cb396(0x1eb)](_0x2bc931,_0x59c175['name']);}else _0x59c175['href']?window[_0x5cb396(0x1cf)]['href']=_0x59c175[_0x5cb396(0x18a)]:showMsg(_0x5cb396(0x233)+_0x59c175[_0x5cb396(0x223)]+_0x5cb396(0x196));};const _0x15e515=document[_0x35aae9(0x221)](_0x35aae9(0x18c));_0x15e515[_0x35aae9(0x1c7)]=_0x35aae9(0x1aa);const _0x2cfa2c=document[_0x35aae9(0x221)](_0x35aae9(0x22f));_0x2cfa2c[_0x35aae9(0x18f)]=_0x59c175[_0x35aae9(0x22f)],_0x2cfa2c[_0x35aae9(0x1a9)]=_0x59c175[_0x35aae9(0x223)],_0x2cfa2c[_0x35aae9(0x1f6)]='lazy',_0x15e515['appendChild'](_0x2cfa2c);const _0x12b37c=document[_0x35aae9(0x221)]('div');_0x12b37c[_0x35aae9(0x1c7)]=_0x35aae9(0x237);const _0x53fcb4=document[_0x35aae9(0x221)](_0x35aae9(0x18c));_0x53fcb4[_0x35aae9(0x1c7)]=_0x35aae9(0x1e1),_0x53fcb4[_0x35aae9(0x1bc)]=_0x59c175[_0x35aae9(0x18d)]?_0x59c175[_0x35aae9(0x223)]+_0x35aae9(0x211):_0x59c175[_0x35aae9(0x223)];const _0x18f47b=document[_0x35aae9(0x221)]('div');_0x18f47b[_0x35aae9(0x1c7)]='card-meta',_0x18f47b['innerHTML']=_0x59c175[_0x35aae9(0x18d)]?'<i\x20class=\x22fas\x20fa-crown\x22></i>\x20Premium':_0x35aae9(0x1ec),_0x12b37c['appendChild'](_0x53fcb4),_0x12b37c[_0x35aae9(0x21b)](_0x18f47b),_0x5d1869[_0x35aae9(0x21b)](_0x15e515),_0x5d1869[_0x35aae9(0x21b)](_0x12b37c),_0x4f76ee[_0x35aae9(0x21b)](_0x5d1869);});}}),updateAllPremiumCardsUI();}window[_0x6772e3(0x21c)]=function(_0x41b7f2){const _0x30fd29=_0x6772e3,_0x2f6921=document['querySelector'](_0x30fd29(0x1dd));if(_0x2f6921)_0x2f6921[_0x30fd29(0x1f8)]();const _0x42beb1=document[_0x30fd29(0x221)](_0x30fd29(0x18c));_0x42beb1['className']=_0x30fd29(0x227),_0x42beb1[_0x30fd29(0x1d9)]=_0x30fd29(0x20a)+_0x41b7f2,document['body'][_0x30fd29(0x21b)](_0x42beb1),setTimeout(()=>{const _0x238adf=_0x30fd29;_0x42beb1[_0x238adf(0x1d5)][_0x238adf(0x189)]='0',setTimeout(()=>_0x42beb1[_0x238adf(0x1f8)](),0x12c);},0x9c4);},window[_0x6772e3(0x1f9)]=function(){const _0x557ee4=_0x6772e3;if(window['history'][_0x557ee4(0x1a5)]>0x1)window[_0x557ee4(0x205)][_0x557ee4(0x1da)]();else showMsg(_0x557ee4(0x1fd));},document['addEventListener'](_0x6772e3(0x1b9),()=>{const _0x497e70=_0x6772e3;loadPremiumState(),renderCards(),startGlobalTimer(),startPremiumSessionGuard(),RewardedAds[_0x497e70(0x1ee)]();const _0x913889=document['getElementById'](_0x497e70(0x1a2));_0x913889[_0x497e70(0x1e2)](_0x497e70(0x193),_0x57458a=>{const _0x21d2c5=_0x497e70;if(_0x57458a['target']===_0x913889)RewardedAds[_0x21d2c5(0x1a7)]();});});
+  // Premium unlock states
+  let premiumState = {
+    netflix: { unlocked: false, expiry: null },
+    spotify: { unlocked: false, expiry: null },
+    amazon: { unlocked: false, expiry: null },
+    boxoffice: { unlocked: false, expiry: null }
+  };
 
+  let currentPremiumKey = null;
+  let countdownInterval = null;
 
+  function formatTimeLeft(ms) {
+    if (ms <= 0) return "00:00";
+    let mins = Math.floor(ms / 60000);
+    let secs = Math.floor((ms % 60000) / 1000);
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  function savePremiumState() {
+    let toStore = {};
+    for (let k in premiumState) {
+      toStore[k] = { unlocked: premiumState[k].unlocked, expiry: premiumState[k].expiry };
+    }
+    localStorage.setItem("galil_vip_rewards", JSON.stringify(toStore));
+  }
+
+  function loadPremiumState() {
+    let saved = localStorage.getItem("galil_vip_rewards");
+    if (!saved) return;
+    try {
+      let parsed = JSON.parse(saved);
+      for (let k in premiumState) {
+        if (parsed[k]) {
+          if (parsed[k].unlocked && parsed[k].expiry && parsed[k].expiry > Date.now()) {
+            premiumState[k] = { unlocked: true, expiry: parsed[k].expiry };
+          } else {
+            premiumState[k] = { unlocked: false, expiry: null };
+          }
+        }
+      }
+    } catch(e) {}
+  }
+
+  function unlockPremiumCategory(key, durationMinutes = 15) {
+    let expiryTime = Date.now() + (durationMinutes * 60 * 1000);
+    if (premiumState[key]) {
+      premiumState[key].unlocked = true;
+      premiumState[key].expiry = expiryTime;
+    }
+    savePremiumState();
+    updateAllPremiumCardsUI();
+    startGlobalTimer();
+    showMsg(`✨ ${getPremiumName(key)} unlocked for ${durationMinutes} minutes! ✨`);
+  }
+
+  function getPremiumName(key) {
+    const names = { netflix: "Netflix", spotify: "Spotify", amazon: "Amazon Prime", boxoffice: "BoxOffice" };
+    return names[key] || key;
+  }
+  
+  // ✅ دالة التحقق الآمن من صلاحية الـ Premium (مفقودة في كودك)
+  function isPremiumUnlocked(key) {
+    // 1. التحقق من الذاكرة المباشرة
+    let state = premiumState[key];
+    if (state && state.unlocked && state.expiry && state.expiry > Date.now()) {
+      return true;
+    }
+    
+    // 2. التحقق الاحتياطي من localStorage (ضد التلاعب أو بعد التحديث)
+    try {
+      let saved = localStorage.getItem("galil_vip_rewards");
+      if (saved) {
+        let parsed = JSON.parse(saved);
+        if (parsed[key] && parsed[key].unlocked && parsed[key].expiry > Date.now()) {
+          // مزامنة الذاكرة المحلية
+          premiumState[key] = parsed[key];
+          return true;
+        }
+      }
+    } catch(e) {}
+    
+    return false;
+  }
+  
+
+  function updateAllPremiumCardsUI() {
+    const allCards = document.querySelectorAll('.card[data-premium]');
+    allCards.forEach(card => {
+      let key = card.getAttribute('data-premium-key');
+      let state = premiumState[key];
+      let existingTimer = card.querySelector('.premium-timer');
+      
+      if (state && state.unlocked && state.expiry && state.expiry > Date.now()) {
+        let remaining = state.expiry - Date.now();
+        if (existingTimer) {
+          existingTimer.innerHTML = `<i class=""></i> ${formatTimeLeft(remaining)}`;
+        } else {
+          let timerDiv = document.createElement('div');
+          timerDiv.className = 'premium-timer';
+          timerDiv.innerHTML = `<i class=""></i> ${formatTimeLeft(remaining)}`;
+          card.appendChild(timerDiv);
+        }
+        card.style.opacity = "1";
+      } 
+      else if (state && state.unlocked && state.expiry && state.expiry <= Date.now()) {
+        state.unlocked = false;
+        state.expiry = null;
+        savePremiumState();
+        if (existingTimer) existingTimer.remove();
+        showMsg(`⏰ ${getPremiumName(key)} time expired, watch ad again`);
+      }
+      else {
+        if (existingTimer) existingTimer.remove();
+        card.style.opacity = "1";
+      }
+    });
+  }
+
+  function startGlobalTimer() {
+    if (countdownInterval) clearInterval(countdownInterval);
+    countdownInterval = setInterval(() => {
+      let anyChange = false;
+      for (let k in premiumState) {
+        let s = premiumState[k];
+        if (s.unlocked && s.expiry && s.expiry <= Date.now()) {
+          s.unlocked = false;
+          s.expiry = null;
+          anyChange = true;
+        }
+      }
+      if (anyChange) {
+        savePremiumState();
+        updateAllPremiumCardsUI();
+      } else {
+        updateAllPremiumCardsUI();
+      }
+    }, 1000);
+  }
+  
+  
+  // 🛡️ === START PREMIUM SESSION GUARD ===
+function startPremiumSessionGuard() {
+    setInterval(() => {
+        let anyExpired = false;
+        for (let key in premiumState) {
+            let state = premiumState[key];
+            if (state.unlocked && state.expiry && state.expiry <= Date.now()) {
+                state.unlocked = false;
+                state.expiry = null;
+                savePremiumState();
+                if (isCurrentlyWatching(key)) {
+                    forceLogoutFromPremium(key);
+                }
+                anyExpired = true;
+                showMsg(`⏰ Session ended for ${getPremiumName(key)}`);
+            }
+        }
+        if (anyExpired) updateAllPremiumCardsUI();
+    }, 30000);
+}
+
+function isCurrentlyWatching(premiumKey) {
+    const currentHref = window.location.href;
+    const targetCard = cardsData.find(c => c.premiumKey === premiumKey);
+    if (targetCard && currentHref.includes(targetCard.href.split(':')[1])) {
+        return true;
+    }
+    try {
+        let activeSession = localStorage.getItem("galil_active_session");
+        if (activeSession === premiumKey) return true;
+    } catch(e) {}
+    return false;
+}
+
+function forceLogoutFromPremium(key) {
+    localStorage.removeItem("galil_active_session");
+    if (window.location.href !== window.location.origin + window.location.pathname) {
+        window.location.href = window.location.href;
+    }
+    if (window.Android && typeof window.Android.onPremiumExpired === 'function') {
+        window.Android.onPremiumExpired(key);
+    }
+    console.log(`🔒 Force closed session for: ${key}`);
+}
+// 🛡️ === END PREMIUM SESSION GUARD ===
+
+  // ============================================
+  // 🎬 Rewarded Ads Manager (مثل الكود القديم)
+  // ============================================
+  const RewardedAds = {
+    isLoaded: false,
+    currentCategoryKey: null,
+    
+    init: function() {
+      this.setupModalListeners();
+      this.preloadAd();
+    },
+    
+    preloadAd: function() {
+      this.isLoaded = false;
+      
+      // ✅ استخدام نفس واجهة Android من الكود القديم
+      if (window.Android && typeof window.Android.loadRewardedAd === 'function') {
+        console.log('📡 Loading rewarded ad from Android');
+        window.Android.loadRewardedAd();
+        
+        // مهلة: إذا لم يتم التحميل خلال 10 ثواني، حاول مجدداً
+        setTimeout(() => {
+          if (!this.isLoaded) {
+            console.log('⚠️ Ad loading timeout, retrying...');
+            window.Android.loadRewardedAd();
+          }
+        }, 10000);
+      } else {
+        console.log('⚠️ Android bridge not available, using test mode');
+        this.isLoaded = true;
+      }
+    },
+    
+    showModal: function(categoryKey, categoryName) {
+      this.currentCategoryKey = categoryKey;
+      const modal = document.getElementById('premiumModal');
+      const titleEl = document.getElementById('modalTitle');
+      const premiumNameSpan = document.getElementById('premiumName');
+      const watchBtn = document.getElementById('watchAdBtn');
+      const adStatus = document.getElementById('adStatus');
+      
+      if (titleEl) titleEl.innerHTML = `${categoryName} VIP`;
+      if (premiumNameSpan) premiumNameSpan.innerText = categoryName;
+      
+      // تحديث حالة الزر
+      if (watchBtn) {
+        watchBtn.disabled = !this.isLoaded;
+      }
+      if (adStatus) adStatus.classList.add('hidden');
+      
+      modal.classList.add('active');
+    },
+    
+    hideModal: function() {
+      const modal = document.getElementById('premiumModal');
+      const adStatus = document.getElementById('adStatus');
+      modal.classList.remove('active');
+      if (adStatus) adStatus.classList.add('hidden');
+      this.currentCategoryKey = null;
+    },
+    
+    setupModalListeners: function() {
+      const closeBtn = document.getElementById('modalCloseBtn');
+      const laterBtn = document.getElementById('closeModalBtn');
+      const watchBtn = document.getElementById('watchAdBtn');
+      
+      if (closeBtn) closeBtn.onclick = () => this.hideModal();
+      if (laterBtn) laterBtn.onclick = () => this.hideModal();
+      if (watchBtn) watchBtn.onclick = () => this.showAd();
+    },
+    
+    showAd: function() {
+      const btn = document.getElementById('watchAdBtn');
+      const adStatus = document.getElementById('adStatus');
+      const key = this.currentCategoryKey;
+      
+      if (!key) {
+        console.error('No category key set');
+        return;
+      }
+      
+      btn.disabled = true;
+      if (adStatus) adStatus.classList.remove('hidden');
+      
+      if (window.Android && typeof window.Android.showRewardedAd === 'function') {
+        const categoryName = getPremiumName(key);
+        console.log('📡 Showing rewarded ad for:', key, categoryName);
+        // ✅ تمرير المعرف والاسم إلى Android
+        window.Android.showRewardedAd(key, categoryName);
+      } else {
+        // وضع تجريبي (للاختبار)
+        console.log('⚠️ Test mode: simulating ad');
+        setTimeout(() => {
+          this.onAdRewarded();
+        }, 2000);
+      }
+    },
+    
+    // ✅ هذه الدوال سيتم استدعاؤها من Android عبر JavascriptInterface
+    
+    onAdLoaded: function() {
+      console.log('✅ Rewarded ad loaded successfully');
+      this.isLoaded = true;
+      const btn = document.getElementById('watchAdBtn');
+      const adStatus = document.getElementById('adStatus');
+      if (btn) btn.disabled = false;
+      if (adStatus) adStatus.classList.add('hidden');
+    },
+    
+    onAdFailed: function() {
+      console.log('❌ Rewarded ad failed to load');
+      this.isLoaded = false;
+      const btn = document.getElementById('watchAdBtn');
+      const adStatus = document.getElementById('adStatus');
+      if (btn) btn.disabled = false;
+      if (adStatus) adStatus.classList.add('hidden');
+      showMsg('⚠️ Ad not available, please try again');
+      
+      // محاولة تحميل إعلان جديد
+      setTimeout(() => this.preloadAd(), 5000);
+    },
+    
+    onAdRewarded: function() {
+      console.log('🎉 Reward earned! Unlocking category:', this.currentCategoryKey);
+      
+      const key = this.currentCategoryKey;
+      if (key) {
+        unlockPremiumCategory(key, 15);
+      }
+      
+      this.hideModal();
+      
+      // فتح الرابط تلقائياً بعد ثانية
+      setTimeout(() => {
+        const targetCard = cardsData.find(c => c.premiumKey === key);
+        if (targetCard && targetCard.href) {
+          window.location.href = targetCard.href;
+        }
+      }, 800);
+      
+      // تجهيز إعلان جديد
+      setTimeout(() => this.preloadAd(), 3000);
+    },
+    
+    onAdNotAvailable: function() {
+      console.log('⚠️ Ad not available at this time');
+      const btn = document.getElementById('watchAdBtn');
+      const adStatus = document.getElementById('adStatus');
+      if (btn) btn.disabled = false;
+      if (adStatus) adStatus.classList.add('hidden');
+      showMsg('⚠️ No ad available, please try again later');
+    }
+  };
+
+  // ربط الدوال للوصول من Android
+  window.RewardedAds = RewardedAds;
+
+  // ============================================
+  // 🎠 SLIDER
+  // ============================================
+  const slides = document.querySelectorAll(".slide");
+  let slideIndex = 0;
+  function showSlide(i) {
+    slides[slideIndex]?.classList.remove("active");
+    slideIndex = i;
+    slides[slideIndex]?.classList.add("active");
+  }
+  setInterval(() => { showSlide((slideIndex + 1) % slides.length); }, 5000);
+
+  // ============================================
+  // 🃏 RENDER CARDS
+  // ============================================
+  function renderCards() {
+    const grid = document.getElementById("cardsGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    
+    const groupOrder = ["SPORTS", "ENTERTAINMENT", "COUNTRIES", "ISLAM", "KIDS"];
+    const groupIcons = {
+      "SPORTS": "fa-futbol",
+      "ENTERTAINMENT": "fa-film",
+      "COUNTRIES": "fa-flag",
+      "ISLAM": "fa-mosque",
+      "KIDS": "fa-child"
+    };
+    
+    const groupedCards = {};
+    cardsData.forEach(card => {
+      let group = card.group;
+      if (!groupedCards[group]) groupedCards[group] = [];
+      groupedCards[group].push(card);
+    });
+    
+    groupOrder.forEach(groupName => {
+      const cardsInGroup = groupedCards[groupName];
+      if (cardsInGroup && cardsInGroup.length > 0) {
+        const groupHeader = document.createElement("div");
+        groupHeader.className = "group-header";
+        let vipClass = groupName === "ENTERTAINMENT" ? "vip-badge" : "";
+        groupHeader.innerHTML = `
+          <div class="group-badge ${vipClass}">
+            <i class="fas ${groupIcons[groupName] || 'fa-tag'}"></i>
+            ${groupName}
+          </div>
+        `;
+        grid.appendChild(groupHeader);
+        
+        cardsInGroup.forEach(card => {
+          const cardDiv = document.createElement("div");
+          cardDiv.className = "card";
+          
+          if (card.isPremium) {
+            cardDiv.setAttribute('data-premium', 'true');
+            cardDiv.setAttribute('data-premium-key', card.premiumKey);
+          }
+          
+          cardDiv.onclick = () => { 
+  if (card.isPremium) {
+    let key = card.premiumKey;
+    
+    // ✅ التحقق المزدوج
+    if (isPremiumUnlocked(key)) {
+      
+      // 🎯 تسجيل الجلسة النشطة قبل الفتح (سطر جديد)
+      localStorage.setItem("galil_active_session", key);
+      
+      let remaining = Math.floor((premiumState[key].expiry - Date.now()) / 60000);
+      showMsg(`🎬 Opening ${card.name}... (${remaining} min left)`);
+      window.location.href = card.href;
+      
+    } else {
+      showMsg(`⏰ Access expired for ${card.name}`);
+      RewardedAds.showModal(key, card.name);
+    }
+  } else {
+    // كود الفئات العادية (اتركه كما هو)
+    if (card.href) {
+      window.location.href = card.href;
+    } else {
+      showMsg(`🔜 ${card.name} - Coming Soon`);
+    }
+  }
+};
+          
+          const mediaDiv = document.createElement("div");
+          mediaDiv.className = "card-media";
+          const img = document.createElement("img");
+          img.src = card.img;
+          img.alt = card.name;
+          img.loading = "lazy";
+          mediaDiv.appendChild(img);
+          
+          const contentDiv = document.createElement("div");
+          contentDiv.className = "card-content";
+          const title = document.createElement("div");
+          title.className = "card-title";
+          title.innerText = card.isPremium ? card.name + ' 👑' : card.name;
+          const meta = document.createElement("div");
+          meta.className = "card-meta";
+          meta.innerHTML = card.isPremium ? '<i class="fas fa-crown"></i> Premium' : '<i class="fas fa-play-circle"></i> Watch Now';
+          contentDiv.appendChild(title);
+          contentDiv.appendChild(meta);
+          
+          cardDiv.appendChild(mediaDiv);
+          cardDiv.appendChild(contentDiv);
+          grid.appendChild(cardDiv);
+        });
+      }
+    });
+    
+    updateAllPremiumCardsUI();
+  }
+
+  // ============================================
+  // 🍞 TOAST MESSAGE
+  // ============================================
+  window.showMsg = function(txt) {
+    const existing = document.querySelector(".toast");
+    if (existing) existing.remove();
+    const el = document.createElement("div");
+    el.className = "toast";
+    el.innerHTML = `<i class="fas fa-info-circle"></i> ${txt}`;
+    document.body.appendChild(el);
+    setTimeout(() => {
+      el.style.opacity = "0";
+      setTimeout(() => el.remove(), 300);
+    }, 2500);
+  };
+
+  // ============================================
+  // 📱 GO BACK
+  // ============================================
+  window.goBack = function() { 
+    if (window.history.length > 1) window.history.back(); 
+    else showMsg("🏠 Home"); 
+  };
+
+  // ============================================
+  // 🚀 INITIALIZATION
+  // ============================================
+  document.addEventListener("DOMContentLoaded", () => {
+    loadPremiumState();
+    renderCards();
+    startGlobalTimer();
+    startPremiumSessionGuard();
+    
+    RewardedAds.init();
+    
+    // إغلاق المودال عند النقر على الخلفية
+    const modal = document.getElementById('premiumModal');
+    modal.addEventListener('click', (e) => { 
+      if (e.target === modal) RewardedAds.hideModal(); 
+    });
+  });
 </script>
 
 </body>
