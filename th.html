@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Channels</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+  /* ===== PRO CARDS STYLE ===== */
+  :root {
+    --bg: #05060a;
+    --surface: #0c0e14;
+    --surface-hover: #141720;
+    --accent: #f59e0b;
+    --accent-glow: rgba(245, 158, 11, 0.25);
+    --text: #f9fafb;
+    --border: #1f2937;
+    --radius: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
+    padding: 10px;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle at 20% 0%, rgba(245,158,11,0.08) 0%, transparent 35%);
+    opacity: 0.6;
+  }
+
+  /* ===== CARDS GRID ===== */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 18px;
+    padding: 4px 0;
+  }
+
+  @media (min-width: 768px) {
+    .grid {
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 24px;
+    }
+  }
+
+  /* ===== CARD DESIGN ===== */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s;
+    text-decoration: none;
+    display: block;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    border-color: var(--accent);
+  }
+
+  .card:active {
+    transform: translateY(-1px) scale(0.995);
+  }
+
+  /* ===== CARD MEDIA ===== */
+  .card-media {
+    position: relative;
+    aspect-ratio: 16/9.5;
+    background: #000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    padding: 6px;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .card:hover .card-media img {
+    transform: scale(1.07);
+  }
+
+  /* ===== CARD CONTENT ===== */
+  .card-content {
+    padding: 8px 14px 16px;
+    position: relative;
+    z-index: 2;
+    margin-top: -12px;
+    transform: translateY(8px);
+  }
+
+  .card-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 0.2px;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.65rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  /* ===== تأثير خلفي للبطاقة ===== */
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 35%, rgba(5,6,10,0.8) 85%, var(--surface) 100%);
+    pointer-events: none;
+    z-index: 1;
+    border-radius: var(--radius);
+  }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    font-weight: 700;
+    z-index: 10000;
+    opacity: 0;
+    animation: toastIn 0.3s forwards;
+    max-width: 85%;
+    text-align: center;
+  }
+
+  @keyframes toastIn {
+    to {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid" id="channels"></div>
+
+<script>
+
+const _0x46b7a0=_0x5441;(function(_0x54a963,_0x260fff){const _0x39ee93=_0x5441,_0xb5fd66=_0x54a963();while(!![]){try{const _0x2053ab=parseInt(_0x39ee93(0x1bf))/0x1+-parseInt(_0x39ee93(0x1b2))/0x2+-parseInt(_0x39ee93(0x1b8))/0x3*(-parseInt(_0x39ee93(0x1a8))/0x4)+-parseInt(_0x39ee93(0x1be))/0x5*(-parseInt(_0x39ee93(0x1a3))/0x6)+-parseInt(_0x39ee93(0x1a9))/0x7*(-parseInt(_0x39ee93(0x1b7))/0x8)+-parseInt(_0x39ee93(0x195))/0x9+-parseInt(_0x39ee93(0x19c))/0xa;if(_0x2053ab===_0x260fff)break;else _0xb5fd66['push'](_0xb5fd66['shift']());}catch(_0xadb34a){_0xb5fd66['push'](_0xb5fd66['shift']());}}}(_0x41a3,0xcd5f4));const API='https://thamanyah.winsnapoli.workers.dev',API_KEY=_0x46b7a0(0x1ac);function encryptURL(_0x224525){return btoa(encodeURIComponent(_0x224525));}function decryptURL(_0x1600cf){return decodeURIComponent(atob(_0x1600cf));}function buildIntent(_0x805678){const _0x198f3c=_0x46b7a0,_0x512190=decryptURL(_0x805678);return _0x198f3c(0x198)+encodeURIComponent(_0x512190)+_0x198f3c(0x1bd)+encodeURIComponent(_0x198f3c(0x1a5))+'#Intent;scheme=vexo;package=com.vexo.player;end';}function showMsg(_0x206eae){const _0x3407f6=_0x46b7a0,_0x5dcef8=document[_0x3407f6(0x1a1)](_0x3407f6(0x197));if(_0x5dcef8)_0x5dcef8[_0x3407f6(0x19f)]();const _0x2fd10a=document[_0x3407f6(0x1a6)](_0x3407f6(0x196));_0x2fd10a[_0x3407f6(0x1ba)]=_0x3407f6(0x1aa),_0x2fd10a[_0x3407f6(0x1b0)]=_0x3407f6(0x1ad)+_0x206eae,document[_0x3407f6(0x1bb)][_0x3407f6(0x1b1)](_0x2fd10a),setTimeout(()=>{const _0x2ee19d=_0x3407f6;_0x2fd10a[_0x2ee19d(0x19e)][_0x2ee19d(0x1b9)]='0',setTimeout(()=>_0x2fd10a[_0x2ee19d(0x19f)](),0x12c);},0x9c4);}function _0x5441(_0x4b1c80,_0x5337cc){const _0x41a393=_0x41a3();return _0x5441=function(_0x5441db,_0xb542e){_0x5441db=_0x5441db-0x193;let _0x42244a=_0x41a393[_0x5441db];return _0x42244a;},_0x5441(_0x4b1c80,_0x5337cc);}function _0x41a3(){const _0x53c2c5=['div','.toast','intent://play?url=','getElementById','url','name','5930080RkLPoG','src','style','remove','href','querySelector','innerText','1370316AQAmis','logo','Live\x20Stream','createElement','card-content','230896iYyXIW','119BAqOIo','toast','<div\x20style=\x22text-align:center;padding:50px;\x22>❌\x20Error\x20loading\x20channels</div>','wins1937@$','<i\x20class=\x22fas\x20fa-info-circle\x22></i>\x20','img','lazy','innerHTML','appendChild','1410848oXZymQ','onclick','card','alt','json','632248vJURZQ','12XdIINI','opacity','className','body','forEach','&title=','30jgBhaK','718834YaABvr','card-media','channels','13715433aaSrLh'];_0x41a3=function(){return _0x53c2c5;};return _0x41a3();}async function loadChannels(){const _0x261bbd=_0x46b7a0;try{const _0x16df0a=await fetch(API,{'headers':{'x-api-key':API_KEY}}),_0x11f6d4=await _0x16df0a[_0x261bbd(0x1b6)](),_0x131f53=_0x11f6d4['baseURL'],_0x4f6bb1=_0x11f6d4[_0x261bbd(0x194)],_0x3c3cda=document[_0x261bbd(0x199)](_0x261bbd(0x194));_0x3c3cda[_0x261bbd(0x1b0)]='',_0x4f6bb1[_0x261bbd(0x1bc)](_0x3b44e4=>{const _0x1d05a3=_0x261bbd;let _0x5b2709='';if(_0x3b44e4['id'])_0x5b2709=_0x131f53+_0x3b44e4['id'];if(_0x3b44e4[_0x1d05a3(0x19a)])_0x5b2709=_0x3b44e4[_0x1d05a3(0x19a)];const _0x47075d=document[_0x1d05a3(0x1a6)](_0x1d05a3(0x196));_0x47075d[_0x1d05a3(0x1ba)]=_0x1d05a3(0x1b4);const _0x4e9588=document['createElement'](_0x1d05a3(0x196));_0x4e9588['className']=_0x1d05a3(0x193);const _0x2d2ac2=document[_0x1d05a3(0x1a6)](_0x1d05a3(0x1ae));_0x2d2ac2[_0x1d05a3(0x19d)]=_0x3b44e4[_0x1d05a3(0x1a4)],_0x2d2ac2[_0x1d05a3(0x1b5)]=_0x3b44e4[_0x1d05a3(0x19b)],_0x2d2ac2['loading']=_0x1d05a3(0x1af),_0x4e9588[_0x1d05a3(0x1b1)](_0x2d2ac2);const _0x3a6ad9=document[_0x1d05a3(0x1a6)](_0x1d05a3(0x196));_0x3a6ad9[_0x1d05a3(0x1ba)]=_0x1d05a3(0x1a7);const _0x5c096f=document['createElement'](_0x1d05a3(0x196));_0x5c096f[_0x1d05a3(0x1ba)]='card-title',_0x5c096f[_0x1d05a3(0x1a2)]=_0x3b44e4[_0x1d05a3(0x19b)];const _0x48e9ef=document['createElement'](_0x1d05a3(0x196));_0x48e9ef[_0x1d05a3(0x1ba)]='card-meta',_0x48e9ef[_0x1d05a3(0x1b0)]='<i\x20class=\x22fas\x20fa-play-circle\x22></i>\x20Watch\x20Now',_0x3a6ad9[_0x1d05a3(0x1b1)](_0x5c096f),_0x3a6ad9[_0x1d05a3(0x1b1)](_0x48e9ef),_0x47075d[_0x1d05a3(0x1b1)](_0x4e9588),_0x47075d['appendChild'](_0x3a6ad9),_0x47075d[_0x1d05a3(0x1b3)]=()=>{const _0x5012a9=_0x1d05a3;window['location'][_0x5012a9(0x1a0)]=buildIntent(encryptURL(_0x5b2709));},_0x3c3cda[_0x1d05a3(0x1b1)](_0x47075d);});}catch(_0x590255){console['error'](_0x590255),document['getElementById']('channels')[_0x261bbd(0x1b0)]=_0x261bbd(0x1ab),showMsg('❌\x20Failed\x20to\x20load\x20channels');}}loadChannels();
+  
+</script>
+
+</body>
+</html>
